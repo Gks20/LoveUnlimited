@@ -4,7 +4,7 @@ from .settings_base import *  # noqa: F401,F403
 
 SECRET_KEY = config('SECRET_KEY')  # Must be set in environment
 DEBUG = False
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='loveunlimited.org').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='loveunlimited.org, vgks.pythonanywhere.com').split(',')
 
 # Recommended to switch to PostgreSQL in production if env vars exist
 DB_NAME = config('POSTGRES_DB', default=None)
