@@ -1,0 +1,87 @@
+/* About page */
+
+.about-page-header .page-heading {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.about-pillar-card {
+    border: 1px solid #e3e8ec;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.about-pillar-card:hover {
+    box-shadow: 0 4px 14px rgba(0, 122, 192, 0.1);
+}
+
+.about-pillar-card .card-body {
+    padding: 2rem 1.5rem;
+}
+
+.about-pillar-icon {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 1.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    color: var(--primary-color);
+    background: linear-gradient(145deg, #eef6fb 0%, #e3f0f9 100%);
+    border: 2px solid rgba(0, 122, 192, 0.12);
+    box-shadow: 0 2px 8px rgba(0, 122, 192, 0.08);
+}
+
+.about-pillar-title {
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.85rem;
+}
+
+.about-pillar-text {
+    font-size: 0.975rem;
+    line-height: 1.65;
+    color: #444;
+    text-align: left;
+}
+
+.about-pillar-text p:last-child {
+    margin-bottom: 0;
+}
+
+.about-story-section h2 {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.about-story-section p {
+    font-size: 1.025rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+.about-story-logo {
+    max-width: 100%;
+    max-height: 320px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.about-impact-section {
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.about-impact-stat h3 {
+    font-weight: 800;
+}
+
+@media (max-width: 768px) {
+    .about-pillar-text {
+        text-align: center;
+    }
+}

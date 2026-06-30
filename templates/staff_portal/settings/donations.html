@@ -1,0 +1,37 @@
+{% extends 'staff_portal/base.html' %}
+{% block title %}Donation Settings{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <a href="{% url 'staff_portal:dashboard' %}" class="staff-back-link text-muted"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Home</a>
+
+            <div class="staff-page-header">
+                <h1 class="staff-page-title">Donation Page</h1>
+                <p class="staff-lead text-muted mb-0">Settings for the Donate page and donation buttons on your website.</p>
+            </div>
+
+            <div class="alert alert-light border staff-alert mb-4">
+                <i class="fas fa-info-circle text-primary me-2" aria-hidden="true"></i>
+                Donations are processed through <strong>Zeffy</strong> — not through this website directly.
+                If you need to change the donation link, ask your website administrator.
+            </div>
+
+            <div class="card staff-form-card">
+                <div class="card-body p-4 p-md-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% include 'staff_portal/_form_sections.html' %}
+                        <div class="d-flex flex-wrap gap-3 mt-4 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="fas fa-save me-2" aria-hidden="true"></i>Save Settings
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

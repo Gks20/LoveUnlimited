@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load site_extras %}
+
+{% block title %}Donate - Love Unlimited{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-4 mb-4">Support Our Mission</h1>
+                <p class="lead">{% site_content_html 'donate-intro' "Your generous support enables us to continue providing essential services." %}</p>
+            </div>
+
+            <!-- Donation Impact -->
+            <div class="row mb-5">
+                <div class="col-md-4 text-center mb-4">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h3 class="text-primary">$25</h3>
+                            <p>{{ donation_settings.impact_25 }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center mb-4">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h3 class="text-primary">$50</h3>
+                            <p>{{ donation_settings.impact_50 }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center mb-4">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h3 class="text-primary">$100</h3>
+                            <p>{{ donation_settings.impact_100 }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zeffy Integration Section -->
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-heart me-2"></i>Make a Donation</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        We partner with Zeffy for secure, transparent donation processing. This means 100% of your contribution goes directly to Love Unlimited—no fees, no deductions.
+                    </div>
+                    
+                    <div class="text-center py-4">
+                        <button type="button" class="btn btn-primary btn-lg" zeffy-form-link="{{ zeffy_form_link }}">
+                            <i class="fas fa-heart me-2"></i>Donate Now
+                        </button>
+                    </div>
+                    {% if donation_settings.zeffy_embed_html %}
+                        <div class="zeffy-embed mt-4">
+                            {{ donation_settings.zeffy_embed_html|safe }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Other Ways to Give -->
+            <div class="mt-5">
+                <h3 class="mb-4">Other Ways to Support Us</h3>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="fas fa-hands-helping text-primary me-2"></i>Volunteer
+                                </h5>
+                                <p class="card-text">Join our passionate team of volunteers and make a direct, hands-on impact in your community.</p>
+                                <a href="{% url 'frontend:contact' %}" class="btn btn-outline-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="fas fa-box text-primary me-2"></i>Donate Items
+                                </h5>
+                                <p class="card-text">We gratefully accept donations of non-perishable food, gently used clothing, and essential hygiene items.</p>
+                                <a href="{% url 'frontend:contact' %}" class="btn btn-outline-primary">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tax Information -->
+            <div class="alert alert-success mt-4">
+                <h5><i class="fas fa-receipt me-2"></i>Tax Deductible</h5>
+                <p class="mb-0">Love Unlimited is a registered 501(c)(3) non-profit organization. Your generous donation is tax-deductible to the full extent allowed by law, and you'll receive a receipt for your records.{% if donation_settings.tax_id %} Tax ID: {{ donation_settings.tax_id }}{% endif %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

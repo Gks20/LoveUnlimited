@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static i18n site_extras %}
+
+{% block title %}{% trans 'Local Resources' %} - Love Unlimited{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/resources.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="top" class="container py-5">
+    <div class="resources-page-header mb-4">
+        <h1 class="display-5 page-heading mb-2">{% trans 'Community Resources' %}</h1>
+        <p class="lead page-subheading mb-0">{% trans 'Search and filter verified local assistance programs. Data is maintained by our team.' %}</p>
+    </div>
+
+    <div class="card resources-toolbar mb-4">
+        <div class="card-body">
+            <form method="get" aria-label="{% trans 'Resource search and filters' %}">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-5">
+                        <label for="resource-search" class="form-label">{% trans 'Search resources' %}</label>
+                        <input id="resource-search" name="q" value="{{ query }}" type="search" class="form-control resource-search" placeholder="{% trans 'Search resources…' %}">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="category" class="form-label">{% trans 'Filter by category' %}</label>
+                        <select id="category" name="category" class="form-select">
+                            <option value="">{% trans 'All Categories' %}</option>
+                            {% for cat in categories %}
+                                <option value="{{ cat.slug }}" {% if selected_category == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="submit" class="btn btn-primary flex-grow-1">{% trans 'Apply Filters' %}</button>
+                            <a href="{% url 'frontend:resources' %}" class="btn btn-outline-secondary">{% trans 'Reset' %}</a>
+                        </div>
+                        <p class="resources-result-count mt-2 mb-0" aria-live="polite">{% trans 'Results' %}: {{ total_results }}</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if categories %}
+    <div class="mb-4" role="navigation" aria-label="{% trans 'Quick category navigation' %}">
+        <ul class="nav nav-pills quick-nav flex-wrap" role="list">
+            {% for cat in categories %}
+            <li class="nav-item"><a class="nav-link" href="#cat-{{ cat.slug }}">{{ cat.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="alert alert-danger border-danger resources-emergency-banner mb-4" aria-labelledby="emergency-resources-heading">
+        <h2 id="emergency-resources-heading" class="alert-heading h5"><i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>{% trans 'Emergency Resources' %}</h2>
+        <div class="row">
+            <div class="col-md-4 mb-2 mb-md-0">
+                <strong>{% trans 'Emergency Services' %}:</strong><br>
+                <i class="fas fa-phone me-1" aria-hidden="true"></i> 911
+            </div>
+            <div class="col-md-4 mb-2 mb-md-0">
+                <strong>{% trans 'Crisis Hotline' %}:</strong><br>
+                <i class="fas fa-phone me-1" aria-hidden="true"></i> 988 ({% trans 'Suicide & Crisis Lifeline' %})
+            </div>
+            <div class="col-md-4">
+                <strong>{% trans 'Domestic Violence' %}:</strong><br>
+                <i class="fas fa-phone me-1" aria-hidden="true"></i> 1-800-799-7233
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info border-0 resources-priority-banner mb-4">
+        <div class="row text-center">
+            <div class="col-md-3 mb-3 mb-md-0 resources-quick-stat">
+                <div class="resources-quick-stat-icon" aria-hidden="true"><i class="fas fa-phone"></i></div>
+                <h6 class="fw-bold">{% trans 'Call 211' %}</h6>
+                <p class="small mb-0">{% trans '24/7 resource helpline' %}</p>
+            </div>
+            <div class="col-md-3 mb-3 mb-md-0 resources-quick-stat">
+                <div class="resources-quick-stat-icon" aria-hidden="true"><i class="fas fa-home"></i></div>
+                <h6 class="fw-bold">{% trans 'White Flag Shelter' %}</h6>
+                <p class="small mb-0">(812) 913-5368</p>
+            </div>
+            <div class="col-md-3 mb-3 mb-md-0 resources-quick-stat">
+                <div class="resources-quick-stat-icon" aria-hidden="true"><i class="fas fa-utensils"></i></div>
+                <h6 class="fw-bold">Love Unlimited</h6>
+                <p class="small mb-0">{% trans 'Saturday meals' %}</p>
+            </div>
+            <div class="col-md-3 resources-quick-stat">
+                <div class="resources-quick-stat-icon" aria-hidden="true"><i class="fas fa-heartbeat"></i></div>
+                <h6 class="fw-bold">{% trans 'Crisis Support' %}</h6>
+                <p class="small mb-0">{% trans 'Call or text 988' %}</p>
+            </div>
+        </div>
+    </div>
+
+    {% if total_results == 0 %}
+        {% if query or selected_category %}
+    <div class="alert alert-warning text-center mb-4" role="status">
+        <i class="fas fa-search me-2" aria-hidden="true"></i>
+        {% blocktrans %}No resources match your search. Try different keywords or{% endblocktrans %}
+        <a href="{% url 'frontend:resources' %}">{% trans 'view all resources' %}</a>.
+    </div>
+        {% endif %}
+    {% endif %}
+
+    <div class="row" aria-label="{% trans 'Resource listings' %}">
+        {% for cat, resources in grouped_resources.items %}
+        <div class="col-md-6 mb-4" id="cat-{{ cat.slug }}">
+            <div class="card resource-category-card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h5 mb-0">{% if cat.icon_class %}<i class="{{ cat.icon_class }} me-2" aria-hidden="true"></i>{% endif %}{{ cat.name }}</h2>
+                </div>
+                <div class="card-body">
+                    {% if resources %}
+                        {% for r in resources %}
+                        <div class="resource-item">
+                            <p class="resource-item-name mb-1">{{ r.name }}</p>
+                            {% if r.address %}<p class="resource-item-detail mb-1"><i class="fas fa-map-marker-alt me-1" aria-hidden="true"></i>{{ r.address }}</p>{% endif %}
+                            {% if r.hours %}<p class="resource-item-detail mb-1"><i class="fas fa-clock me-1" aria-hidden="true"></i>{{ r.hours }}</p>{% endif %}
+                            {% if r.phone %}<p class="resource-item-detail mb-1"><i class="fas fa-phone me-1" aria-hidden="true"></i>{{ r.phone }}</p>{% endif %}
+                            {% if r.website %}<p class="resource-item-detail mb-1"><i class="fas fa-globe me-1" aria-hidden="true"></i><a href="{{ r.website }}" target="_blank" rel="noopener">{{ r.website }}</a></p>{% endif %}
+                            {% if r.description %}<p class="resource-item-desc">{{ r.description }}</p>{% endif %}
+                            {% if r.tags %}<p class="small mt-1 mb-0"><span class="text-muted">{% trans 'Tags' %}:</span> {% for t in r.tag_list %}<span class="badge bg-light text-dark border me-1">{{ t }}</span>{% endfor %}</p>{% endif %}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted mb-0">
+                            {% trans 'No resources in this category' %}{% if query %} {% blocktrans %}matching "{{ query }}"{% endblocktrans %}{% endif %}.
+                            {% if not query %} {% trans 'Check back later or call 211 for assistance.' %}{% endif %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5 empty-state">
+            <i class="fas fa-hands-helping fa-4x text-muted mb-4" aria-hidden="true"></i>
+            <h3 class="text-muted">{% trans 'Resources Coming Soon' %}</h3>
+            <p class="lead text-muted">{% trans 'Our team is building this directory. Call 211 for immediate assistance.' %}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row mb-5 mt-4" id="access" aria-label="{% trans 'How to access services' %}">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body bg-light">
+                    <h3 class="text-center mb-4 text-primary h4"><i class="fas fa-question-circle me-2" aria-hidden="true"></i>{% trans 'How to Access These Services' %}</h3>
+                    <div class="row g-4">
+                        <div class="col-md-3 text-center">
+                            <div class="resources-access-icon mx-auto mb-3" aria-hidden="true"><i class="fas fa-phone"></i></div>
+                            <h4 class="h6 fw-bold">{% trans 'Call First' %}</h4>
+                            <p class="small mb-0">{% trans 'Always call ahead to verify hours, availability, and requirements.' %}</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="resources-access-icon mx-auto mb-3" aria-hidden="true"><i class="fas fa-id-card"></i></div>
+                            <h4 class="h6 fw-bold">{% trans 'Bring ID' %}</h4>
+                            <p class="small mb-0">{% trans 'Most services require photo identification and proof of address.' %}</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="resources-access-icon mx-auto mb-3" aria-hidden="true"><i class="fas fa-file-alt"></i></div>
+                            <h4 class="h6 fw-bold">{% trans 'Documentation' %}</h4>
+                            <p class="small mb-0">{% trans 'Bring income statements, bills, and any relevant paperwork.' %}</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="resources-access-icon mx-auto mb-3" aria-hidden="true"><i class="fas fa-clock"></i></div>
+                            <h4 class="h6 fw-bold">{% trans 'Be Patient' %}</h4>
+                            <p class="small mb-0">{% trans 'Some services may have waiting lists or require appointments.' %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body bg-primary text-white text-center p-5">
+                    <h3 class="mb-4 h4"><i class="fas fa-hands-helping me-2" aria-hidden="true"></i>{% trans 'Need Help Navigating These Resources?' %}</h3>
+                    <p class="lead mb-4">{% trans 'Our staff can help connect you with the right services for your situation.' %}</p>
+                    {% site_content 'contact-phone' '(502) 509-7563' as contact_phone %}
+                    {% site_content 'contact-email' 'loveunlimitedcommunityoutreach@gmail.com' as contact_email %}
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <i class="fas fa-phone me-2" aria-hidden="true"></i>
+                                    <a href="tel:+15025097563" class="text-white text-decoration-none fw-bold">{{ contact_phone }}</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <i class="fas fa-envelope me-2" aria-hidden="true"></i>
+                                    <a href="mailto:{{ contact_email }}" class="text-white text-decoration-none">{{ contact_email }}</a>
+                                </div>
+                            </div>
+                            <a href="{% url 'frontend:contact' %}" class="btn btn-warning btn-lg px-5">
+                                <i class="fas fa-comments me-2" aria-hidden="true"></i>{% trans 'Contact Us for Help' %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4" id="disclaimer" aria-label="{% trans 'Disclaimer' %}">
+        <div class="col-12">
+            <div class="alert alert-info mb-0">
+                <small>
+                    <i class="fas fa-info-circle me-1" aria-hidden="true"></i>
+                    <strong>{% trans 'Disclaimer' %}:</strong>
+                    {% trans 'The information provided is for general reference only. Services, hours, and contact information may change. Please call ahead to verify current information. Love Unlimited is not responsible for the services provided by other organizations listed here.' %}
+                    {% blocktrans with month_year="now"|date:"F Y" %}Last updated: {{ month_year }}{% endblocktrans %}
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="#top" class="back-to-top btn btn-primary shadow" aria-label="{% trans 'Back to top' %}">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</a>
+{% endblock %}

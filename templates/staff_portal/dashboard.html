@@ -1,0 +1,147 @@
+{% extends 'staff_portal/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4 staff-dashboard">
+    <div class="mb-4">
+        <h1 class="staff-page-title mb-2">Hello{% if user.first_name %}, {{ user.first_name }}{% endif %}!</h1>
+        <p class="staff-lead text-muted mb-0">What would you like to do today? Pick an option below.</p>
+    </div>
+
+    <div class="row g-3 mb-5">
+        <div class="col-md-6 col-xl-4">
+            <a href="{% url 'staff_portal:event_create' %}" class="staff-action-card card h-100 text-decoration-none">
+                <div class="card-body d-flex align-items-start gap-3">
+                    <div class="staff-action-icon bg-primary text-white">
+                        <i class="fas fa-calendar-plus" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h2 class="h5 text-dark mb-1">Add an Event</h2>
+                        <p class="text-muted mb-0 small">Put a new event on the calendar so people can sign up.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <a href="{% url 'staff_portal:post_create' %}" class="staff-action-card card h-100 text-decoration-none">
+                <div class="card-body d-flex align-items-start gap-3">
+                    <div class="staff-action-icon bg-success text-white">
+                        <i class="fas fa-pen" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h2 class="h5 text-dark mb-1">Write News</h2>
+                        <p class="text-muted mb-0 small">Share an update or announcement on the website.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <a href="{% url 'staff_portal:content_list' %}" class="staff-action-card card h-100 text-decoration-none">
+                <div class="card-body d-flex align-items-start gap-3">
+                    <div class="staff-action-icon bg-info text-white">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h2 class="h5 text-dark mb-1">Change Website Text</h2>
+                        <p class="text-muted mb-0 small">Edit the words on your homepage, about page, and more.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <a href="{% url 'staff_portal:event_list' %}" class="staff-action-card card h-100 text-decoration-none">
+                <div class="card-body d-flex align-items-start gap-3">
+                    <div class="staff-action-icon bg-secondary text-white">
+                        <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h2 class="h5 text-dark mb-1">View Sign-ups</h2>
+                        <p class="text-muted mb-0 small">See who registered for your upcoming events.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <a href="{% url 'staff_portal:team_list' %}" class="staff-action-card card h-100 text-decoration-none">
+                <div class="card-body d-flex align-items-start gap-3">
+                    <div class="staff-action-icon bg-warning text-dark">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h2 class="h5 text-dark mb-1">Update Our Team</h2>
+                        <p class="text-muted mb-0 small">Add or edit leadership photos and bios.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <a href="{% url 'frontend:home' %}" class="staff-action-card card h-100 text-decoration-none" target="_blank" rel="noopener">
+                <div class="card-body d-flex align-items-start gap-3">
+                    <div class="staff-action-icon bg-dark text-white">
+                        <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h2 class="h5 text-dark mb-1">See Live Website</h2>
+                        <p class="text-muted mb-0 small">Open the public site in a new tab to check your changes.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card staff-panel h-100">
+                <div class="card-header">
+                    <h2 class="h5 mb-0">Upcoming Events</h2>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for event in upcoming_events %}
+                    <li class="list-group-item d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
+                        <div>
+                            <strong class="fs-5">{{ event.title }}</strong>
+                            <div class="text-muted">{{ event.date|date:"l, F j, Y" }}</div>
+                        </div>
+                        <a href="{% url 'staff_portal:event_detail' event.pk %}" class="btn btn-primary btn-lg">View Sign-ups</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item py-4 text-muted">
+                        No upcoming events yet.
+                        <a href="{% url 'staff_portal:event_create' %}">Add your first event</a>.
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card staff-panel h-100">
+                <div class="card-header">
+                    <h2 class="h5 mb-0">Recent Sign-ups</h2>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for reg in recent_registrations %}
+                    <li class="list-group-item py-3">
+                        <strong>{{ reg.first_name }} {{ reg.last_name }}</strong>
+                        <span class="text-muted">signed up for</span>
+                        <strong>{{ reg.event.title }}</strong>
+                        <div class="small text-muted">{{ reg.registered_at|date:"F j, g:i A" }}</div>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item py-4 text-muted">No sign-ups yet. When people register for events, they will show up here.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% if stats.draft_posts %}
+    <div class="alert alert-warning staff-alert mt-4 mb-0" role="status">
+        <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+        You have <strong>{{ stats.draft_posts }}</strong> unpublished news article{{ stats.draft_posts|pluralize }} waiting to go live.
+        <a href="{% url 'staff_portal:post_list' %}" class="alert-link">Review them</a>.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+

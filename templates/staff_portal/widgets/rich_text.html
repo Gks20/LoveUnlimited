@@ -1,0 +1,7 @@
+<div class="staff-rich-text" data-staff-rich-text>
+    <div class="staff-rich-toolbar-hint text-muted small mb-2">
+        <i class="fas fa-bold me-1" aria-hidden="true"></i> Highlight text, then use the buttons to make it <strong>bold</strong> or start a new paragraph.
+    </div>
+    <div class="staff-rich-quill border rounded bg-white" id="{{ widget.attrs.id }}_quill" aria-label="Text editor"></div>
+    <textarea name="{{ widget.name }}" id="{{ widget.attrs.id }}" class="{{ widget.attrs.class }}" hidden>{{ widget.value }}</textarea>
+</div>

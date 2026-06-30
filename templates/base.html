@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+
+{% load static i18n site_extras %}
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Love Unlimited{% endblock %}</title>
+
+    {% block meta_basic %}
+
+    <meta name="description" content="{% block meta_description %}Love Unlimited provides meals, resources, and community support to those in need.{% endblock %}">
+
+    <link rel="canonical" href="{% firstof request.build_absolute_uri request.path %}">
+
+    {% endblock %}
+
+    {% block meta_og %}
+
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+
+    <meta property="og:title" content="{% block og_title %}Love Unlimited{% endblock %}">
+
+    <meta property="og:description" content="{% block og_description %}Love Unlimited provides meals, resources, and community support to those in need.{% endblock %}">
+
+    <meta property="og:url" content="{% firstof request.build_absolute_uri request.path %}">
+
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'Img/LogoMain.png' %}">
+
+    {% endblock %}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'Img/TabLogo.ico' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'Img/TabLogo.ico' %}">
+    {% block extra_head %}{% endblock %}
+    <script src="https://zeffy-scripts.s3.ca-central-1.amazonaws.com/embed-form-script.min.js" defer></script>
+
+</head>
+
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation" aria-label="Primary">
+
+        <div class="container">
+
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'frontend:home' %}">
+
+                <img src="{% static 'Img/LogoMain.png' %}" alt="Love Unlimited organization logo" class="me-2 navbar-logo" />
+
+                <span class="fw-bold">Love Unlimited</span>
+
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav me-auto">
+
+                    <li class="nav-item">
+
+                        <a class="nav-link{% if request.resolver_match.url_name == 'home' %} active{% endif %}" href="{% url 'frontend:home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>{% trans 'Home' %}</a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link{% if request.resolver_match.url_name == 'about' %} active{% endif %}" href="{% url 'frontend:about' %}"{% if request.resolver_match.url_name == 'about' %} aria-current="page"{% endif %}>{% trans 'About' %}</a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link{% if request.resolver_match.url_name == 'calendar' %} active{% endif %}" href="{% url 'frontend:calendar' %}"{% if request.resolver_match.url_name == 'calendar' %} aria-current="page"{% endif %}>{% trans 'Events' %}</a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link{% if request.resolver_match.url_name == 'news' or request.resolver_match.url_name == 'news_detail' %} active{% endif %}" href="{% url 'frontend:news' %}"{% if request.resolver_match.url_name == 'news' or request.resolver_match.url_name == 'news_detail' %} aria-current="page"{% endif %}>{% trans 'News' %}</a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link{% if request.resolver_match.url_name == 'resources' %} active{% endif %}" href="{% url 'frontend:resources' %}"{% if request.resolver_match.url_name == 'resources' %} aria-current="page"{% endif %}>{% trans 'Resources' %}</a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link{% if request.resolver_match.url_name == 'contact' %} active{% endif %}" href="{% url 'frontend:contact' %}"{% if request.resolver_match.url_name == 'contact' %} aria-current="page"{% endif %}>{% trans 'Contact' %}</a>
+
+                    </li>
+
+                </ul>
+
+                <ul class="navbar-nav">
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                            {% if LANGUAGE_CODE == 'es' %}Español{% else %}English{% endif %}
+
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+
+                            <li>
+
+                                <form action="{% url 'set_language' %}" method="post">
+
+                                    {% csrf_token %}
+
+                                    <input type="hidden" name="language" value="en">
+
+                                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+
+                                    <button type="submit" class="dropdown-item">English</button>
+
+                                </form>
+
+                            </li>
+
+                            <li>
+
+                                <form action="{% url 'set_language' %}" method="post">
+
+                                    {% csrf_token %}
+
+                                    <input type="hidden" name="language" value="es">
+
+                                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+
+                                    <button type="submit" class="dropdown-item">Español</button>
+
+                                </form>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <button type="button" class="nav-link btn btn-primary text-white me-2 border-0 donate-nav-btn" zeffy-form-link="{{ zeffy_form_link }}">
+
+                            <i class="fas fa-donate me-1" aria-hidden="true"></i>{% trans 'Donate' %}
+
+                        </button>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    {% if messages %}
+
+    <div class="container mt-3" aria-live="polite">
+
+        {% for message in messages %}
+
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show mb-2" role="alert">
+
+                {% if message.tags == 'danger' or message.tags == 'error' %}
+
+                    <i class="fas fa-exclamation-circle me-2" aria-hidden="true"></i>
+
+                {% elif message.tags == 'warning' %}
+
+                    <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
+
+                {% elif message.tags == 'success' %}
+
+                    <i class="fas fa-check-circle me-2" aria-hidden="true"></i>
+
+                {% else %}
+
+                    <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+
+                {% endif %}
+
+                {{ message }}
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- Main Content -->
+
+    <main id="main-content" tabindex="-1" role="main">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+
+    <!-- Footer -->
+
+    <footer class="bg-dark text-light py-4 mt-5" role="contentinfo" aria-label="Footer">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <h5><i class="fas fa-heart text-danger me-2" aria-hidden="true"></i>Love Unlimited</h5>
+
+                    <p>{% site_content 'footer-tagline' 'A grassroots force providing meals and support to local homeless and less fortunate.' %}</p>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h5>{% trans 'Quick Links' %}</h5>
+
+                    <ul class="list-unstyled">
+
+                        <li><a href="{% url 'frontend:about' %}" class="text-light">{% trans 'About Us' %}</a></li>
+
+                        <li><a href="{% url 'frontend:calendar' %}" class="text-light">{% trans 'Events' %}</a></li>
+
+                        <li><a href="{% url 'frontend:resources' %}" class="text-light">{% trans 'Resources' %}</a></li>
+
+                        <li><a href="{% url 'frontend:contact' %}" class="text-light">{% trans 'Contact' %}</a></li>
+
+                        <li><a href="{% url 'frontend:donate' %}" class="text-light">{% trans 'Donate' %}</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h5>{% trans 'Contact Info' %}</h5>
+
+                    <p><i class="fas fa-envelope me-2" aria-hidden="true"></i>{% site_content 'contact-email' 'loveunlimitedcommunityoutreach@gmail.com' %}</p>
+
+                    <p><i class="fas fa-phone me-2" aria-hidden="true"></i>{% site_content 'contact-phone' '(502) 509-7563' %}</p>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="text-center">
+
+                <p>&copy; {{ current_year }} Love Unlimited. {% trans 'All rights reserved.' %}</p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - Love Unlimited{% endblock %}
+
+{% load widget_tweaks site_extras %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-4 mb-4">Contact Us</h1>
+                <p class="lead">We'd love to hear from you. Get in touch with us for questions, volunteer opportunities, or partnership inquiries.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Contact Information -->
+        <div class="col-lg-4 mb-5">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-info-circle me-2" aria-hidden="true"></i>Contact Information</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5><i class="fas fa-map-marker-alt text-primary me-2" aria-hidden="true"></i>Address</h5>
+                        <p class="mb-0">{% site_content_html 'contact-address' 'Central Christian Church<br>1315 E. Spring Street<br>New Albany, IN 47150' %}</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5><i class="fas fa-phone text-primary me-2" aria-hidden="true"></i>Phone</h5>
+                        {% site_content 'contact-phone' '(502) 509-7563' as contact_phone %}
+                        <p class="mb-0"><a href="tel:+15025097563">{{ contact_phone }}</a></p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5><i class="fas fa-envelope text-primary me-2" aria-hidden="true"></i>Email</h5>
+                        {% site_content 'contact-email' 'loveunlimitedcommunityoutreach@gmail.com' as contact_email %}
+                        <p class="mb-0"><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5><i class="fas fa-clock text-primary me-2" aria-hidden="true"></i>Hours</h5>
+                        <p class="mb-0">{% site_content_html 'contact-hours' 'Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday: 10:00 AM - 2:00 PM<br>Sunday: Closed' %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-lg-8 mb-5">
+            <div class="card" aria-labelledby="contact-form-heading">
+                <div class="card-header bg-primary text-white">
+                    <h4 id="contact-form-heading" class="mb-0"><i class="fas fa-paper-plane me-2" aria-hidden="true"></i>Send Us a Message</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for err in form.non_field_errors %}{{ err }}{% if not forloop.last %}<br>{% endif %}{% endfor %}
+                        </div>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                                {% if form.first_name.errors %}
+                                {{ form.first_name|add_class:"form-control is-invalid" }}
+                                {% else %}
+                                {{ form.first_name|add_class:"form-control" }}
+                                {% endif %}
+                                {% for e in form.first_name.errors %}<div class="invalid-feedback d-block" id="{{ form.first_name.id_for_label }}_error">{{ e }}</div>{% endfor %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                                {% if form.last_name.errors %}
+                                {{ form.last_name|add_class:"form-control is-invalid" }}
+                                {% else %}
+                                {{ form.last_name|add_class:"form-control" }}
+                                {% endif %}
+                                {% for e in form.last_name.errors %}<div class="invalid-feedback d-block" id="{{ form.last_name.id_for_label }}_error">{{ e }}</div>{% endfor %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                {% if form.email.errors %}
+                                {{ form.email|add_class:"form-control is-invalid" }}
+                                {% else %}
+                                {{ form.email|add_class:"form-control" }}
+                                {% endif %}
+                                {% for e in form.email.errors %}<div class="invalid-feedback d-block" id="{{ form.email.id_for_label }}_error">{{ e }}</div>{% endfor %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                                {% if form.phone.errors %}
+                                {{ form.phone|add_class:"form-control is-invalid" }}
+                                {% else %}
+                                {{ form.phone|add_class:"form-control" }}
+                                {% endif %}
+                                {% for e in form.phone.errors %}<div class="invalid-feedback d-block" id="{{ form.phone.id_for_label }}_error">{{ e }}</div>{% endfor %}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.subject.id_for_label }}">{{ form.subject.label }}</label>
+                            {% if form.subject.errors %}
+                            {{ form.subject|add_class:"form-select is-invalid" }}
+                            {% else %}
+                            {{ form.subject|add_class:"form-select" }}
+                            {% endif %}
+                            {% for e in form.subject.errors %}<div class="invalid-feedback d-block" id="{{ form.subject.id_for_label }}_error">{{ e }}</div>{% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+                            {% if form.message.errors %}
+                            {{ form.message|add_class:"form-control is-invalid" }}
+                            {% else %}
+                            {{ form.message|add_class:"form-control" }}
+                            {% endif %}
+                            {% for e in form.message.errors %}<div class="invalid-feedback d-block" id="{{ form.message.id_for_label }}_error">{{ e }}</div>{% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane me-2" aria-hidden="true"></i>Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Volunteer Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="bg-light rounded p-5">
+                <div class="text-center">
+                    <h2 class="mb-4"><i class="fas fa-hands-helping text-primary me-2" aria-hidden="true"></i>Volunteer With Us</h2>
+                    <p class="lead mb-4">Join our amazing team of volunteers and make a direct impact in your community. We have opportunities for individuals, families, and groups.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-utensils fa-2x text-primary mb-3" aria-hidden="true"></i>
+                                    <h5>Food Service</h5>
+                                    <p class="small">Help prepare and serve meals to community members in need.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-boxes fa-2x text-primary mb-3" aria-hidden="true"></i>
+                                    <h5>Donation Sorting</h5>
+                                    <p class="small">Assist with organizing, sorting, and distributing donated items to the community.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-calendar-alt fa-2x text-primary mb-3" aria-hidden="true"></i>
+                                    <h5>Event Support</h5>
+                                    <p class="small">Help with community events, fundraisers, and special programs.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <p class="mb-3"><strong>Ready to get started?</strong> Fill out the contact form above and mention "Volunteer" in the subject line, or call us directly.</p>
+                        <p class="small text-muted">All volunteers must complete a brief orientation and background check process.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

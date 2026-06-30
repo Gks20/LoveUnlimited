@@ -1,0 +1,28 @@
+{% load i18n %}
+<article class="card news-card h-100">
+    {% if post.featured_image %}
+    <div class="news-card-image-wrap">
+        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" loading="lazy">
+    </div>
+    {% else %}
+    <div class="news-card-image-wrap news-card-image-wrap--placeholder">
+        <div class="news-card-image-placeholder" aria-hidden="true">
+            <i class="fas fa-newspaper"></i>
+        </div>
+    </div>
+    {% endif %}
+    <div class="card-body news-card-body">
+        <span class="news-date-badge">{{ post.published_at|date:"M d, Y" }}</span>
+        <h2 class="news-card-title h5">
+            <a href="{% url 'frontend:news_detail' post.slug %}">{{ post.title }}</a>
+        </h2>
+        {% if post.excerpt %}
+            <p class="news-card-excerpt">{{ post.excerpt|truncatewords:excerpt_words|default:30 }}</p>
+        {% else %}
+            <p class="news-card-excerpt">{{ post.body|striptags|truncatewords:excerpt_words|default:30 }}</p>
+        {% endif %}
+        <a href="{% url 'frontend:news_detail' post.slug %}" class="news-read-more btn btn-sm btn-outline-primary">
+            {% trans 'Read more' %} <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i>
+        </a>
+    </div>
+</article>

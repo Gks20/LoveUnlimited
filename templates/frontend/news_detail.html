@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static i18n site_extras %}
+
+{% block title %}{% trans 'News & Updates' %} - Love Unlimited{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/news.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="news-article-panel">
+        <article class="news-article">
+            <header class="news-article-header">
+                <div class="news-article-meta">
+                    <span class="news-article-meta-item">
+                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                        {{ post.published_at|date:"F d, Y" }}
+                    </span>
+                    <span class="news-article-meta-item">
+                        <i class="fas fa-newspaper" aria-hidden="true"></i>
+                        {% trans 'News & Updates' %}
+                    </span>
+                </div>
+                <h1 class="news-article-title">{{ post.title }}</h1>
+            </header>
+
+            {% if post.featured_image %}
+            <figure class="news-article-hero">
+                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+            </figure>
+            {% endif %}
+
+            <div class="news-article-body">
+                {{ post.body|post_body_html }}
+            </div>
+
+            {% if post.related_event %}
+            <div class="alert alert-info mt-4 news-related-event">
+                <i class="fas fa-calendar me-2" aria-hidden="true"></i>
+                {% trans 'Related event' %}: <strong>{{ post.related_event.title }}</strong>
+                {% trans 'on' %} {{ post.related_event.date|date:"F d, Y" }}
+            </div>
+            {% endif %}
+
+            <footer class="news-article-footer">
+                <a href="{% url 'frontend:news' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2" aria-hidden="true"></i>{% trans 'Back to news' %}
+                </a>
+            </footer>
+        </article>
+    </div>
+</div>
+{% endblock %}

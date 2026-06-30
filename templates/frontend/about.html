@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static site_extras %}
+
+{% block title %}About Us - Love Unlimited{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5 about-page-header">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-5 page-heading mb-3">About Love Unlimited</h1>
+            <p class="lead page-subheading">{% site_content_html 'about-intro' "We're a dedicated team of volunteers and community members." %}</p>
+        </div>
+    </div>
+
+    <div class="row mb-5 g-4">
+        <div class="col-lg-4">
+            <div class="card about-pillar-card h-100">
+                <div class="card-body text-center">
+                    <div class="about-pillar-icon" aria-hidden="true"><i class="fas fa-heart"></i></div>
+                    <h2 class="about-pillar-title h4">Our Mission</h2>
+                    <div class="about-pillar-text">{% site_content_html 'about-mission' "We are a community-driven organization committed to addressing homelessness and poverty." %}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card about-pillar-card h-100">
+                <div class="card-body text-center">
+                    <div class="about-pillar-icon" aria-hidden="true"><i class="fas fa-handshake"></i></div>
+                    <h2 class="about-pillar-title h4">Our Approach</h2>
+                    <div class="about-pillar-text">{% site_content_html 'about-approach' "Our Saturday meals are the foundation of our work." %}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card about-pillar-card h-100">
+                <div class="card-body text-center">
+                    <div class="about-pillar-icon" aria-hidden="true"><i class="fas fa-star"></i></div>
+                    <h2 class="about-pillar-title h4">Our Values</h2>
+                    <div class="about-pillar-text">{% site_content_html 'about-values' "<strong>Human Dignity:</strong> Every person we serve deserves our best efforts." %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5 align-items-center about-story-section">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <h2 class="mb-4">Our Story</h2>
+            <p>{% site_content_html 'about-story-1' "Love Unlimited began as a mobile outreach initiative in 2020." %}</p>
+            <p>{% site_content_html 'about-story-2' "Since our founding, we've proudly provided over 4,000 meals." %}</p>
+            <p class="mb-0">{% site_content_html 'about-story-3' "Our impact extends far beyond our Saturday meal services." %}</p>
+        </div>
+        <div class="col-lg-6 text-center">
+            <img src="{% static 'Img/LogoMain.png' %}" class="about-story-logo rounded" alt="Love Unlimited organization logo">
+        </div>
+    </div>
+
+    <div class="bg-primary text-white py-5 rounded mb-5 about-impact-section">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Our Impact</h2>
+            <div class="row text-center">
+                <div class="col-md-3 mb-4 about-impact-stat">
+                    <h3 class="display-5 fw-bold">2020</h3>
+                    <p class="mb-0">Serving Since</p>
+                </div>
+                <div class="col-md-3 mb-4 about-impact-stat">
+                    <h3 class="display-5 fw-bold text-warning">4,000+</h3>
+                    <p class="mb-0">Meals Provided</p>
+                </div>
+                <div class="col-md-3 mb-4 about-impact-stat">
+                    <h3 class="display-5 fw-bold">Weekly</h3>
+                    <p class="mb-0">Saturday Service</p>
+                </div>
+                <div class="col-md-3 mb-4 about-impact-stat">
+                    <h3 class="display-5 fw-bold">Mobile</h3>
+                    <p class="mb-0">Outreach Model</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if team_members %}
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-5 page-heading h3">Our Leadership Team</h2>
+        </div>
+        {% for member in team_members %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card team-member-card text-center h-100">
+                <div class="card-body">
+                    {% include 'includes/team_avatar.html' with member=member size=120 size_class='lg' %}
+                    <h5 class="card-title text-love">{{ member.name }}</h5>
+                    <p class="team-role">{{ member.role }}</p>
+                    {% if member.bio %}
+                        <p class="team-bio mb-0">{{ member.bio }}</p>
+                    {% else %}
+                        <p class="team-bio mb-0 text-muted">&nbsp;</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="text-center">
+        <h2 class="mb-4 page-heading h3">Get Involved</h2>
+        <p class="lead page-subheading mb-4">{% site_content_html 'about-get-involved' "There are many ways to support our mission." %}</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <button type="button" class="btn btn-primary btn-lg" zeffy-form-link="{{ zeffy_form_link }}">
+                <i class="fas fa-donate me-2" aria-hidden="true"></i>Donate
+            </button>
+            <a href="{% url 'frontend:contact' %}" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-hands-helping me-2" aria-hidden="true"></i>Volunteer
+            </a>
+            <a href="{% url 'frontend:contact' %}" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-envelope me-2" aria-hidden="true"></i>Partner With Us
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

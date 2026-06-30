@@ -1,0 +1,52 @@
+{% if form.field_groups %}
+    {% for section_title, section_help, field_names in form.field_groups %}
+    <section class="staff-form-section mb-4 pb-2">
+        <h2 class="h5 staff-section-title">{{ section_title }}</h2>
+        {% if section_help %}
+            <p class="text-muted mb-3">{{ section_help }}</p>
+        {% endif %}
+        {% for field in form %}
+            {% if field.name in field_names %}
+                {% if field.field.widget.input_type == 'checkbox' %}
+                <div class="mb-4">
+                    <div class="form-check form-switch staff-check-lg p-3 bg-light rounded border">
+                        {{ field }}
+                        <label class="form-check-label fw-semibold" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {% if field.help_text %}
+                            <div class="form-text ms-0 mt-1">{{ field.help_text }}</div>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% elif field.field.widget.template_name == 'staff_portal/widgets/rich_text.html' %}
+                <div class="mb-4">
+                    <label class="form-label fw-semibold fs-5">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <div class="form-text">{{ field.help_text }}</div>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="mb-4">
+                    <label for="{{ field.id_for_label }}" class="form-label fw-semibold fs-5">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <div class="form-text">{{ field.help_text }}</div>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </section>
+    {% endfor %}
+{% else %}
+    {% include 'staff_portal/_form_fields.html' %}
+{% endif %}

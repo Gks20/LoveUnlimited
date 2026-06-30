@@ -1,0 +1,87 @@
+{% extends 'staff_portal/base.html' %}
+
+{% block title %}Our Team{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <a href="{% url 'staff_portal:dashboard' %}" class="staff-back-link text-muted"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Home</a>
+
+
+
+    <div class="staff-page-header d-flex flex-wrap justify-content-between align-items-center gap-3">
+
+        <div>
+
+            <h1 class="staff-page-title mb-2">Our Team</h1>
+
+            <p class="staff-lead text-muted mb-0">Leadership photos and bios shown on the About Us page.</p>
+
+        </div>
+
+        <a href="{% url 'staff_portal:team_create' %}" class="btn btn-primary btn-lg">
+
+            <i class="fas fa-plus me-2" aria-hidden="true"></i>Add Team Member
+
+        </a>
+
+    </div>
+
+
+
+    <div class="row g-3">
+
+        {% for member in members %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card staff-form-card h-100">
+
+                <div class="card-body p-4 text-center text-md-start">
+                    {% include 'includes/team_avatar.html' with member=member size=80 size_class='sm' %}
+                    <h2 class="h5">{{ member.name }}</h2>
+
+                    <p class="text-muted">{{ member.role }}</p>
+
+                    {% if not member.is_active %}
+
+                        <span class="badge bg-secondary mb-2">Hidden from website</span>
+
+                    {% endif %}
+
+                    <p class="small text-muted">{{ member.bio|truncatewords:25 }}</p>
+
+                    <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start">
+
+                        <a href="{% url 'staff_portal:team_edit' member.pk %}" class="btn btn-primary btn-lg">Edit</a>
+
+                        <a href="{% url 'staff_portal:team_delete' member.pk %}" class="btn btn-outline-danger btn-lg">Remove</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12 text-center py-5 text-muted">
+
+            <p class="fs-5">No team members yet.</p>
+
+            <a href="{% url 'staff_portal:team_create' %}" class="btn btn-primary btn-lg">Add Your First Team Member</a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+

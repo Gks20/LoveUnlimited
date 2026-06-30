@@ -1,0 +1,46 @@
+{% extends 'staff_portal/base.html' %}
+{% block title %}News{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+    <a href="{% url 'staff_portal:dashboard' %}" class="staff-back-link text-muted"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Home</a>
+
+    <div class="staff-page-header d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h1 class="staff-page-title mb-2">News & Updates</h1>
+            <p class="staff-lead text-muted mb-0">Articles that appear on the News page of your website.</p>
+        </div>
+        <a href="{% url 'staff_portal:post_create' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-plus me-2" aria-hidden="true"></i>Write New Article
+        </a>
+    </div>
+
+    {% for post in posts %}
+    <div class="staff-list-card">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+            <div>
+                <h2 class="h4 mb-1">{{ post.title }}</h2>
+                <p class="text-muted mb-2">
+                    {{ post.get_language_display }} · {{ post.published_at|date:"F j, Y" }}
+                </p>
+                {% if post.is_published %}
+                    <span class="badge badge-live">Live on website</span>
+                {% else %}
+                    <span class="badge badge-draft">Draft — not visible yet</span>
+                {% endif %}
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'staff_portal:post_edit' post.pk %}" class="btn btn-primary btn-lg">Edit</a>
+                <a href="{% url 'staff_portal:post_delete' post.pk %}" class="btn btn-outline-danger btn-lg">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center py-5 text-muted">
+        <i class="fas fa-newspaper fa-3x mb-3 opacity-50" aria-hidden="true"></i>
+        <p class="fs-5">No articles yet.</p>
+        <a href="{% url 'staff_portal:post_create' %}" class="btn btn-primary btn-lg">Write Your First Article</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,43 @@
+{% extends 'staff_portal/base.html' %}
+{% block title %}Community Resources{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+    <a href="{% url 'staff_portal:dashboard' %}" class="staff-back-link text-muted"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Home</a>
+
+    <div class="staff-page-header d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h1 class="staff-page-title mb-2">Community Resources</h1>
+            <p class="staff-lead text-muted mb-0">Helpful organizations and services listed on the Resources page.</p>
+        </div>
+        <a href="{% url 'staff_portal:resource_create' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-plus me-2" aria-hidden="true"></i>Add Resource
+        </a>
+    </div>
+
+    {% for resource in resources %}
+    <div class="staff-list-card">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+            <div>
+                <h2 class="h4 mb-1">{{ resource.name }}</h2>
+                <p class="text-muted mb-2">{{ resource.category.name }}</p>
+                {% if resource.phone %}
+                    <p class="mb-1"><i class="fas fa-phone me-1" aria-hidden="true"></i>{{ resource.phone }}</p>
+                {% endif %}
+                {% if resource.is_active %}
+                    <span class="badge bg-success">Shown on website</span>
+                {% else %}
+                    <span class="badge bg-secondary">Hidden</span>
+                {% endif %}
+            </div>
+            <a href="{% url 'staff_portal:resource_edit' resource.pk %}" class="btn btn-primary btn-lg">Edit</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center py-5 text-muted">
+        <p class="fs-5">No resources listed yet.</p>
+        <a href="{% url 'staff_portal:resource_create' %}" class="btn btn-primary btn-lg">Add Your First Resource</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

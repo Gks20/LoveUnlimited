@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static i18n site_extras %}
+
+{% block title %}{% trans 'Welcome' %} - Love Unlimited{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/news.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="hero-section bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Love Unlimited</h1>
+                <p class="lead mb-4">{% site_content_html 'home-hero' "We're a passionate grassroots organization dedicated to serving our community's most vulnerable members." %}</p>
+                <div class="d-flex flex-wrap gap-3 hero-actions">
+                    <button type="button" class="btn btn-warning btn-lg" zeffy-form-link="{{ zeffy_form_link }}">
+                        <i class="fas fa-heart me-2" aria-hidden="true"></i>{% trans 'Donate Now' %}
+                    </button>
+                    <a href="{% url 'frontend:about' %}" class="btn btn-outline-light btn-lg">{% trans 'Learn More' %}</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="{% static 'Img/LogoMain.png' %}" class="img-fluid rounded hero-logo" alt="Love Unlimited organization logo"
+                width="500" height="500">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">{% trans 'Our Mission' %}</h2>
+                <p class="lead">{% site_content_html 'home-mission' "We exist to be a beacon of hope in our community." %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">{% trans 'How We Help' %}</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-utensils fa-3x text-primary mb-3" aria-hidden="true"></i>
+                        <h5 class="card-title">{% trans 'Weekly Meal Service' %}</h5>
+                        <p class="card-text">{% site_content_html 'home-service-meals' "Every Saturday, we serve nutritious meals with love and dignity." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-home fa-3x text-primary mb-3" aria-hidden="true"></i>
+                        <h5 class="card-title">{% trans 'Housing & Essential Support' %}</h5>
+                        <p class="card-text">{% site_content_html 'home-service-housing' "We connect individuals with emergency housing resources." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-hands-helping fa-3x text-primary mb-3" aria-hidden="true"></i>
+                        <h5 class="card-title">{% trans 'Advocacy & Life Navigation' %}</h5>
+                        <p class="card-text">{% site_content_html 'home-service-advocacy' "We serve as trusted advocates for those in need." %}</p>
+                        <a href="{% url 'frontend:resources' %}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-list me-1" aria-hidden="true"></i>{% trans 'View Resources' %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if upcoming_events %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">{% trans 'Upcoming Events' %}</h2>
+        <div class="row">
+            {% for event in upcoming_events %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text">
+                            <i class="fas fa-calendar me-2" aria-hidden="true"></i>{{ event.date }}
+                            <br>
+                            <i class="fas fa-clock me-2" aria-hidden="true"></i>{{ event.start_time }}
+                            {% if event.location %}
+                            <br>
+                            <i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i>{{ event.location }}
+                            {% endif %}
+                        </p>
+                        <p class="card-text">{{ event.description|truncatewords:15 }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <a href="{% url 'frontend:calendar' %}" class="btn btn-primary">{% trans 'View All Events' %}</a>
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="py-5">
+    <div class="container text-center empty-state">
+        <h2 class="mb-3">{% trans 'Upcoming Events' %}</h2>
+        <p class="text-muted mb-4">{% trans 'No events scheduled right now. Check back soon or contact us to stay in the loop.' %}</p>
+        <a href="{% url 'frontend:calendar' %}" class="btn btn-outline-primary">{% trans 'View Events Calendar' %}</a>
+    </div>
+</section>
+{% endif %}
+
+{% if latest_posts %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">{% trans 'Latest News' %}</h2>
+        <div class="row justify-content-center">
+            {% for post in latest_posts %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                {% include 'includes/news_card.html' with post=post excerpt_words=20 %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <a href="{% url 'frontend:news' %}" class="btn btn-outline-primary">{% trans 'All News' %}</a>
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="py-5 bg-light">
+    <div class="container text-center empty-state">
+        <h2 class="mb-3">{% trans 'Latest News' %}</h2>
+        <p class="text-muted mb-4">{% trans "News and updates will appear here as they're published." %}</p>
+        <a href="{% url 'frontend:news' %}" class="btn btn-outline-primary">{% trans 'Visit News Page' %}</a>
+    </div>
+</section>
+{% endif %}
+
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">{% trans 'Make a Difference Today' %}</h2>
+        <p class="lead mb-4">{% site_content_html 'home-cta' "Your support helps us continue our mission." %}</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3 hero-actions">
+            <button type="button" class="btn btn-warning btn-lg" zeffy-form-link="{{ zeffy_form_link }}">
+                <i class="fas fa-donate me-2" aria-hidden="true"></i>{% trans 'Donate' %}
+            </button>
+            <a href="{% url 'frontend:contact' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-hands-helping me-2" aria-hidden="true"></i>{% trans 'Volunteer' %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

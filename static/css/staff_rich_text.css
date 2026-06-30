@@ -1,0 +1,48 @@
+/* Rich text editor — large, readable controls for staff */
+.staff-rich-text .ql-toolbar.ql-snow {
+    border-radius: 0.5rem 0.5rem 0 0;
+    background: #f8f9fa;
+    padding: 0.75rem;
+    border-color: #ced4da;
+}
+
+.staff-rich-text .ql-container.ql-snow {
+    border-radius: 0 0 0.5rem 0.5rem;
+    border-color: #ced4da;
+    font-size: 1.125rem;
+    font-family: inherit;
+}
+
+.staff-rich-text .ql-editor {
+    min-height: 14rem;
+    line-height: 1.7;
+    padding: 1.25rem;
+}
+
+.staff-rich-text .ql-editor.ql-blank::before {
+    font-style: normal;
+    color: #6c757d;
+}
+
+.staff-rich-text .ql-snow .ql-picker,
+.staff-rich-text .ql-snow .ql-stroke {
+    stroke: #333;
+}
+
+.staff-rich-text .ql-snow .ql-fill {
+    fill: #333;
+}
+
+.staff-rich-text .ql-toolbar button {
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+.staff-rich-preview {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}

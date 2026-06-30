@@ -1,0 +1,32 @@
+{% extends 'staff_portal/base.html' %}
+{% block title %}{% if object %}Edit Team Member{% else %}Add Team Member{% endif %}{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <a href="{% url 'staff_portal:team_list' %}" class="staff-back-link text-muted"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Our Team</a>
+
+            <div class="staff-page-header">
+                <h1 class="staff-page-title">{% if object %}Edit Team Member{% else %}Add a Team Member{% endif %}</h1>
+                <p class="text-muted mb-0">This information appears on the About Us page of your website.</p>
+            </div>
+
+            <div class="card staff-form-card">
+                <div class="card-body p-4 p-md-5">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'staff_portal/_form_sections.html' %}
+                        <div class="d-flex flex-wrap gap-3 mt-4 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="fas fa-save me-2" aria-hidden="true"></i>Save
+                            </button>
+                            <a href="{% url 'staff_portal:team_list' %}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,14 @@
+{% load site_extras %}
+{% if member.has_photo %}
+    <img src="{{ member.photo.url }}"
+         class="team-avatar-photo rounded-circle mb-3"
+         alt="Photo of {{ member.name }}"
+         width="{{ size }}"
+         height="{{ size }}">
+{% else %}
+    <div class="team-avatar-initials team-avatar-initials-{{ size_class }} mb-3"
+         role="img"
+         aria-label="{{ member.name }}">
+        <span aria-hidden="true">{{ member.name|person_initials }}</span>
+    </div>
+{% endif %}

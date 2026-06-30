@@ -1,0 +1,93 @@
+{% extends 'staff_portal/base.html' %}
+
+{% load staff_extras %}
+
+{% block title %}Website Text{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <a href="{% url 'staff_portal:dashboard' %}" class="staff-back-link text-muted"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Home</a>
+
+
+
+    <div class="staff-page-header">
+
+        <h1 class="staff-page-title mb-2">Website Text</h1>
+
+        <p class="staff-lead text-muted mb-3">Click <strong>Edit</strong> on any section to change the words visitors see on your website.</p>
+
+
+
+        <div class="staff-lang-toggle d-flex flex-wrap gap-2 align-items-center">
+
+            <span class="text-muted me-2">Language:</span>
+
+            <a href="?lang=en" class="btn {% if current_lang != 'es' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-lg">English</a>
+
+            <a href="?lang=es" class="btn {% if current_lang == 'es' %}btn-primary{% else %}btn-outline-primary{% endif %} btn-lg">Español</a>
+
+        </div>
+
+    </div>
+
+
+
+    {% for section in content_sections %}
+
+    <section class="mb-5">
+
+        <h2 class="h4 text-primary mb-1">{{ section.title }}</h2>
+
+        <p class="text-muted mb-3">{{ section.help }}</p>
+
+        <div class="row g-3">
+
+            {% for item in section.blocks %}
+
+            <div class="col-md-6">
+
+                <div class="card staff-form-card h-100">
+
+                    <div class="card-body p-4">
+
+                        <h3 class="h5 mb-2">{{ item.label }}</h3>
+
+                        <p class="text-muted mb-3">{{ item.block.body|striptags|truncatewords:20 }}</p>
+
+                        <a href="{% url 'staff_portal:content_edit' item.block.pk %}" class="btn btn-primary btn-lg w-100">
+
+                            <i class="fas fa-pen me-2" aria-hidden="true"></i>Edit This Text
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    {% empty %}
+
+    <div class="alert alert-info staff-alert">
+
+        <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+
+        No website text found yet. Ask your administrator to run the initial site setup.
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+
+

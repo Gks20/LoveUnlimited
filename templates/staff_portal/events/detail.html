@@ -1,0 +1,50 @@
+{% extends 'staff_portal/base.html' %}
+{% block title %}{{ event.title }}{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+    <a href="{% url 'staff_portal:event_list' %}" class="staff-back-link text-muted"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Events</a>
+
+    <div class="staff-page-header d-flex flex-wrap justify-content-between align-items-start gap-3">
+        <div>
+            <h1 class="staff-page-title mb-2">{{ event.title }}</h1>
+            <p class="text-muted fs-5 mb-0">
+                {{ event.date|date:"l, F j, Y" }} —
+                <strong>{{ event.registration_count }}</strong> people signed up
+                {% if event.max_attendees %} (limit: {{ event.max_attendees }}){% endif %}
+            </p>
+        </div>
+        <a href="{% url 'staff_portal:event_edit' event.pk %}" class="btn btn-outline-primary btn-lg">Edit Event</a>
+    </div>
+
+    <div class="card staff-panel">
+        <div class="card-header">
+            <h2 class="h5 mb-0">People Who Signed Up</h2>
+        </div>
+        {% for reg in registrations %}
+        <div class="list-group-item py-3 px-4 border-bottom">
+            <div class="d-flex flex-wrap justify-content-between gap-2">
+                <div>
+                    <strong class="fs-5">{{ reg.first_name }} {{ reg.last_name }}</strong>
+                    <div class="text-muted mt-1">
+                        <i class="fas fa-envelope me-1" aria-hidden="true"></i>
+                        <a href="mailto:{{ reg.email }}">{{ reg.email }}</a>
+                        {% if reg.phone %}
+                        <br><i class="fas fa-phone me-1" aria-hidden="true"></i>{{ reg.phone }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="text-muted small align-self-center">
+                    Signed up {{ reg.registered_at|date:"F j, g:i A" }}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="p-5 text-center text-muted fs-5">
+            <i class="fas fa-user-friends fa-2x mb-3 opacity-50" aria-hidden="true"></i>
+            <p class="mb-0">Nobody has signed up for this event yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

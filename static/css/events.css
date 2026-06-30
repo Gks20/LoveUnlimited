@@ -1,0 +1,128 @@
+/* Events calendar page */
+
+.events-page-header {
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.events-section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--primary-color);
+    display: inline-block;
+}
+
+.events-section-title--past {
+    border-bottom-color: #adb5bd;
+    color: #495057;
+}
+
+.event-card {
+    border: 1px solid #e3e6ea;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    position: relative;
+}
+
+.event-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 122, 192, 0.1);
+    transform: translateY(-1px);
+}
+
+.event-card--past {
+    opacity: 0.92;
+}
+
+.event-card-accent {
+    height: 4px;
+    background: var(--event-accent, var(--primary-color));
+}
+
+.event-card-header {
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 1rem 1.15rem;
+}
+
+.event-card-title {
+    font-weight: 700;
+    line-height: 1.35;
+    color: #1a1a1a;
+}
+
+.event-card-body {
+    padding: 1.15rem 1.15rem 1rem;
+}
+
+.event-meta-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    margin-bottom: 0.55rem;
+    font-size: 0.925rem;
+    color: #444;
+    line-height: 1.45;
+}
+
+.event-meta-list li:last-child {
+    margin-bottom: 0;
+}
+
+.event-meta-list i {
+    width: 1.1rem;
+    margin-top: 0.15rem;
+    color: var(--primary-color);
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.event-card-description {
+    font-size: 0.925rem;
+    color: #555;
+    line-height: 1.55;
+}
+
+.event-card-contact {
+    border-top: 1px solid #f0f0f0;
+}
+
+.event-card-footer {
+    background: #fafbfc;
+    border-top: 1px solid #eee;
+    padding: 0.85rem 1.15rem;
+}
+
+.event-category-badge {
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.events-past-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #dee2e6;
+}
+
+.events-cta-banner {
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+@media (max-width: 576px) {
+    .event-card-footer {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+
+    .event-card-footer .btn {
+        width: 100%;
+    }
+}
