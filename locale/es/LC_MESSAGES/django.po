@@ -1,0 +1,414 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LoveUnlimited 1.0\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Navigation & footer
+msgid "Home"
+msgstr "Inicio"
+
+msgid "About"
+msgstr "Acerca"
+
+msgid "Events"
+msgstr "Eventos"
+
+msgid "News"
+msgstr "Noticias"
+
+msgid "Resources"
+msgstr "Recursos"
+
+msgid "Contact"
+msgstr "Contacto"
+
+msgid "Donate"
+msgstr "Donar"
+
+msgid "Quick Links"
+msgstr "Enlaces Rápidos"
+
+msgid "About Us"
+msgstr "Acerca de Nosotros"
+
+msgid "Contact Info"
+msgstr "Información de Contacto"
+
+msgid "All rights reserved."
+msgstr "Todos los derechos reservados."
+
+# Home
+msgid "Donate Now"
+msgstr "Donar Ahora"
+
+msgid "Learn More"
+msgstr "Conocer Más"
+
+msgid "Our Mission"
+msgstr "Nuestra Misión"
+
+msgid "How We Help"
+msgstr "Cómo Ayudamos"
+
+msgid "Weekly Meal Service"
+msgstr "Comidas Semanales"
+
+msgid "Housing & Essential Support"
+msgstr "Vivienda y Apoyo Esencial"
+
+msgid "Advocacy & Life Navigation"
+msgstr "Defensa y Orientación"
+
+msgid "View Resources"
+msgstr "Ver Recursos"
+
+msgid "Upcoming Events"
+msgstr "Próximos Eventos"
+
+msgid "View All Events"
+msgstr "Ver Todos los Eventos"
+
+msgid "No events scheduled right now. Check back soon or contact us to stay in the loop."
+msgstr "No hay eventos programados por ahora. Vuelva pronto o contáctenos para mantenerse informado."
+
+msgid "View Events Calendar"
+msgstr "Ver Calendario de Eventos"
+
+msgid "Latest News"
+msgstr "Últimas Noticias"
+
+msgid "All News"
+msgstr "Todas las Noticias"
+
+msgid "News and updates will appear here as they're published."
+msgstr "Las noticias y actualizaciones aparecerán aquí cuando se publiquen."
+
+msgid "Visit News Page"
+msgstr "Visitar Página de Noticias"
+
+msgid "Make a Difference Today"
+msgstr "Marque la Diferencia Hoy"
+
+msgid "Volunteer"
+msgstr "Ser Voluntario"
+
+# About
+msgid "About Love Unlimited"
+msgstr "Acerca de Love Unlimited"
+
+msgid "Our Approach"
+msgstr "Nuestro Enfoque"
+
+msgid "Our Values"
+msgstr "Nuestros Valores"
+
+msgid "Our Story"
+msgstr "Nuestra Historia"
+
+msgid "Our Impact"
+msgstr "Nuestro Impacto"
+
+msgid "Get Involved"
+msgstr "Participe"
+
+msgid "Support Our Mission"
+msgstr "Apoye Nuestra Misión"
+
+# Contact
+msgid "Contact Us"
+msgstr "Contáctenos"
+
+msgid "Contact Information"
+msgstr "Información de Contacto"
+
+msgid "Address"
+msgstr "Dirección"
+
+msgid "Phone"
+msgstr "Teléfono"
+
+msgid "Email"
+msgstr "Correo Electrónico"
+
+msgid "Hours"
+msgstr "Horario"
+
+msgid "Send Us a Message"
+msgstr "Envíenos un Mensaje"
+
+msgid "Send Message"
+msgstr "Enviar Mensaje"
+
+msgid "Volunteer With Us"
+msgstr "Sea Voluntario con Nosotros"
+
+# Calendar
+msgid "Events & Calendar"
+msgstr "Eventos y Calendario"
+
+msgid "Join us for upcoming events, volunteer opportunities, and community gatherings. Everyone is welcome!"
+msgstr "Únase a nuestros eventos, oportunidades de voluntariado y reuniones comunitarias. ¡Todos son bienvenidos!"
+
+msgid "Register"
+msgstr "Registrarse"
+
+msgid "Event Full"
+msgstr "Evento Lleno"
+
+msgid "Event Passed"
+msgstr "Evento Finalizado"
+
+msgid "Add to Calendar"
+msgstr "Agregar al Calendario"
+
+msgid "No Upcoming Events"
+msgstr "No Hay Próximos Eventos"
+
+msgid "Check back soon for upcoming events and volunteer opportunities!"
+msgstr "¡Vuelva pronto para ver eventos y oportunidades de voluntariado!"
+
+msgid "Contact Us for Updates"
+msgstr "Contáctenos para Actualizaciones"
+
+msgid "Stay Updated"
+msgstr "Manténgase Informado"
+
+msgid "Contact us to hear about upcoming events, volunteer opportunities, and community news."
+msgstr "Contáctenos para conocer eventos, oportunidades de voluntariado y noticias comunitarias."
+
+# Donate
+msgid "Donate to Love Unlimited"
+msgstr "Done a Love Unlimited"
+
+msgid "Your Impact"
+msgstr "Su Impacto"
+
+msgid "Ways to Give"
+msgstr "Formas de Donar"
+
+# News
+msgid "News & Updates"
+msgstr "Noticias y Actualizaciones"
+
+msgid "Stories, announcements, and recaps from Love Unlimited."
+msgstr "Historias, anuncios y resúmenes de Love Unlimited."
+
+msgid "Read more"
+msgstr "Leer más"
+
+msgid "News pagination"
+msgstr "Paginación de noticias"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Page %(num)s of %(total)s"
+msgstr "Página %(num)s de %(total)s"
+
+msgid "No News Yet"
+msgstr "Aún No Hay Noticias"
+
+msgid "Check back soon for stories and updates from our community."
+msgstr "Vuelva pronto para ver historias y actualizaciones de nuestra comunidad."
+
+msgid "Back to Home"
+msgstr "Volver al Inicio"
+
+msgid "Related event"
+msgstr "Evento relacionado"
+
+msgid "on"
+msgstr "el"
+
+msgid "Back to news"
+msgstr "Volver a noticias"
+
+# Resources
+msgid "Local Resources"
+msgstr "Recursos Locales"
+
+msgid "Community Resources"
+msgstr "Recursos Comunitarios"
+
+msgid "Search and filter verified local assistance programs. Data is maintained by our team."
+msgstr "Busque y filtre programas locales de asistencia verificados. Nuestro equipo mantiene los datos."
+
+msgid "Resource search"
+msgstr "Búsqueda de recursos"
+
+msgid "Search resources"
+msgstr "Buscar recursos"
+
+msgid "Search resources…"
+msgstr "Buscar recursos…"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Results"
+msgstr "Resultados"
+
+msgid "Category filter"
+msgstr "Filtro por categoría"
+
+msgid "Filter by category"
+msgstr "Filtrar por categoría"
+
+msgid "All Categories"
+msgstr "Todas las Categorías"
+
+msgid "Apply Filters"
+msgstr "Aplicar Filtros"
+
+msgid "Reset"
+msgstr "Restablecer"
+
+msgid "Quick category navigation"
+msgstr "Navegación rápida por categoría"
+
+msgid "Emergency Resources"
+msgstr "Recursos de Emergencia"
+
+msgid "Emergency Services"
+msgstr "Servicios de Emergencia"
+
+msgid "Crisis Hotline"
+msgstr "Línea de Crisis"
+
+msgid "Suicide & Crisis Lifeline"
+msgstr "Línea de Prevención del Suicidio y Crisis"
+
+msgid "Domestic Violence"
+msgstr "Violencia Doméstica"
+
+msgid "Call 211"
+msgstr "Llame al 211"
+
+msgid "24/7 resource helpline"
+msgstr "Línea de recursos 24/7"
+
+msgid "White Flag Shelter"
+msgstr "Refugio White Flag"
+
+msgid "Saturday meals"
+msgstr "Comidas los sábados"
+
+msgid "Crisis Support"
+msgstr "Apoyo en Crisis"
+
+msgid "Call or text 988"
+msgstr "Llame o envíe mensaje al 988"
+
+msgid "No resources match your search. Try different keywords or"
+msgstr "Ningún recurso coincide con su búsqueda. Pruebe otras palabras o"
+
+msgid "view all resources"
+msgstr "ver todos los recursos"
+
+msgid "Resource listings"
+msgstr "Listado de recursos"
+
+msgid "Tags"
+msgstr "Etiquetas"
+
+msgid "No resources in this category"
+msgstr "No hay recursos en esta categoría"
+
+msgid "matching \"%(query)s\""
+msgstr "que coincidan con \"%(query)s\""
+
+msgid "Check back later or call 211 for assistance."
+msgstr "Vuelva más tarde o llame al 211 para asistencia."
+
+msgid "Resources Coming Soon"
+msgstr "Recursos Próximamente"
+
+msgid "Our team is building this directory. Call 211 for immediate assistance."
+msgstr "Nuestro equipo está creando este directorio. Llame al 211 para asistencia inmediata."
+
+msgid "How to access services"
+msgstr "Cómo acceder a los servicios"
+
+msgid "How to Access These Services"
+msgstr "Cómo Acceder a Estos Servicios"
+
+msgid "Call First"
+msgstr "Llame Primero"
+
+msgid "Always call ahead to verify hours, availability, and requirements."
+msgstr "Siempre llame antes para verificar horarios, disponibilidad y requisitos."
+
+msgid "Bring ID"
+msgstr "Lleve Identificación"
+
+msgid "Most services require photo identification and proof of address."
+msgstr "La mayoría de servicios requieren identificación con foto y comprobante de domicilio."
+
+msgid "Documentation"
+msgstr "Documentación"
+
+msgid "Bring income statements, bills, and any relevant paperwork."
+msgstr "Lleve comprobantes de ingresos, facturas y documentos relevantes."
+
+msgid "Be Patient"
+msgstr "Sea Paciente"
+
+msgid "Some services may have waiting lists or require appointments."
+msgstr "Algunos servicios tienen listas de espera o requieren citas."
+
+msgid "Need Help Navigating These Resources?"
+msgstr "¿Necesita Ayuda para Navegar Estos Recursos?"
+
+msgid "Our staff can help connect you with the right services for your situation."
+msgstr "Nuestro personal puede conectarle con los servicios adecuados para su situación."
+
+msgid "Contact Us for Help"
+msgstr "Contáctenos para Ayuda"
+
+msgid "Disclaimer"
+msgstr "Aviso Legal"
+
+msgid "The information provided is for general reference only. Services, hours, and contact information may change. Please call ahead to verify current information. Love Unlimited is not responsible for the services provided by other organizations listed here."
+msgstr "La información es solo de referencia general. Los servicios, horarios e información de contacto pueden cambiar. Llame antes para verificar. Love Unlimited no es responsable de los servicios de otras organizaciones listadas aquí."
+
+msgid "Last updated: %(month_year)s"
+msgstr "Última actualización: %(month_year)s"
+
+msgid "Back to top"
+msgstr "Volver arriba"
+
+# Error pages
+msgid "Page Not Found"
+msgstr "Página No Encontrada"
+
+msgid "Sorry, we couldn't find the page you're looking for. It may have moved or no longer exists."
+msgstr "Lo sentimos, no encontramos la página que busca. Puede haber sido movida o ya no existir."
+
+msgid "Go Home"
+msgstr "Ir al Inicio"
+
+msgid "Something Went Wrong"
+msgstr "Algo Salió Mal"
+
+msgid "We're sorry — something unexpected happened on our end. Please try again in a moment."
+msgstr "Lo sentimos — ocurrió un error inesperado. Por favor intente de nuevo en un momento."
+
+# Misc
+msgid "Toggle navigation"
+msgstr "Abrir menú de navegación"
+
+msgid "Skip to main content"
+msgstr "Saltar al contenido principal"
+
+msgid "Welcome"
+msgstr "Bienvenido"
+
+msgid "Search term"
+msgstr "Buscar término"
