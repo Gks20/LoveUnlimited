@@ -3,10 +3,6 @@
 
 {% block title %}{% trans 'Welcome' %} - Love Unlimited{% endblock %}
 
-{% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/news.css' %}">
-{% endblock %}
-
 {% block content %}
 <section class="hero-section bg-primary text-white py-5">
     <div class="container">
@@ -114,32 +110,6 @@
         <h2 class="mb-3">{% trans 'Upcoming Events' %}</h2>
         <p class="text-muted mb-4">{% trans 'No events scheduled right now. Check back soon or contact us to stay in the loop.' %}</p>
         <a href="{% url 'frontend:calendar' %}" class="btn btn-outline-primary">{% trans 'View Events Calendar' %}</a>
-    </div>
-</section>
-{% endif %}
-
-{% if latest_posts %}
-<section class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center mb-5">{% trans 'Latest News' %}</h2>
-        <div class="row justify-content-center">
-            {% for post in latest_posts %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                {% include 'includes/news_card.html' with post=post excerpt_words=20 %}
-            </div>
-            {% endfor %}
-        </div>
-        <div class="text-center">
-            <a href="{% url 'frontend:news' %}" class="btn btn-outline-primary">{% trans 'All News' %}</a>
-        </div>
-    </div>
-</section>
-{% else %}
-<section class="py-5 bg-light">
-    <div class="container text-center empty-state">
-        <h2 class="mb-3">{% trans 'Latest News' %}</h2>
-        <p class="text-muted mb-4">{% trans "News and updates will appear here as they're published." %}</p>
-        <a href="{% url 'frontend:news' %}" class="btn btn-outline-primary">{% trans 'Visit News Page' %}</a>
     </div>
 </section>
 {% endif %}

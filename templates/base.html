@@ -93,12 +93,6 @@
 
                     <li class="nav-item">
 
-                        <a class="nav-link{% if request.resolver_match.url_name == 'news' or request.resolver_match.url_name == 'news_detail' %} active{% endif %}" href="{% url 'frontend:news' %}"{% if request.resolver_match.url_name == 'news' or request.resolver_match.url_name == 'news_detail' %} aria-current="page"{% endif %}>{% trans 'News' %}</a>
-
-                    </li>
-
-                    <li class="nav-item">
-
                         <a class="nav-link{% if request.resolver_match.url_name == 'resources' %} active{% endif %}" href="{% url 'frontend:resources' %}"{% if request.resolver_match.url_name == 'resources' %} aria-current="page"{% endif %}>{% trans 'Resources' %}</a>
 
                     </li>
@@ -273,7 +267,7 @@
 
                     <p><i class="fas fa-envelope me-2" aria-hidden="true"></i>{% site_content 'contact-email' 'loveunlimitedcommunityoutreach@gmail.com' %}</p>
 
-                    <p><i class="fas fa-phone me-2" aria-hidden="true"></i>{% site_content 'contact-phone' '(502) 509-7563' %}</p>
+                    <p class="mb-1"><i class="fas fa-phone me-2" aria-hidden="true"></i>{% site_content_html 'contact-contacts' 'Stephanie Woodward - <a href="tel:+18123992954" class="text-light">(812) 399-2954</a><br>Cathy Higgins - <a href="tel:+15025580642" class="text-light">(502) 558-0642</a>' %}</p>
 
                 </div>
 
@@ -283,7 +277,13 @@
 
             <div class="text-center">
 
-                <p>&copy; {{ current_year }} Love Unlimited. {% trans 'All rights reserved.' %}</p>
+                <p class="mb-2">&copy; {{ current_year }} Love Unlimited. {% trans 'All rights reserved.' %}</p>
+
+                <p class="mb-0">
+                    <a href="{% url 'staff_portal:login' %}" class="text-light text-decoration-none">
+                        <i class="fas fa-lock me-2" aria-hidden="true"></i>{% trans 'Staff Login' %}
+                    </a>
+                </p>
 
             </div>
 

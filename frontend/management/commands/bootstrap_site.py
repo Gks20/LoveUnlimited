@@ -89,9 +89,15 @@ DEFAULT_CONTENT = {
         'A grassroots force providing meals and support to local homeless and less fortunate.'
     ),
     'contact-email': 'loveunlimitedcommunityoutreach@gmail.com',
-    'contact-phone': '(502) 509-7563',
-    'contact-address': 'Central Christian Church<br>1315 E. Spring Street<br>New Albany, IN 47150',
-    'contact-hours': 'Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday: 10:00 AM - 2:00 PM<br>Sunday: Closed',
+    'contact-contacts': (
+        'Stephanie Woodward - <a href="tel:+18123992954">(812) 399-2954</a><br>'
+        'Cathy Higgins - <a href="tel:+15025580642">(502) 558-0642</a>'
+    ),
+    'contact-address': (
+        'Love Unlimited c/o<br>Central Christian Church<br>'
+        '1315 E. Spring Street<br>New Albany, IN 47150'
+    ),
+    'contact-hours': 'Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday: 1:00 PM - 3:00 PM<br>Sunday: Closed',
 }
 
 SPANISH_CONTENT = {
@@ -155,9 +161,15 @@ SPANISH_CONTENT = {
     ),
     'footer-tagline': 'Una fuerza comunitaria que ofrece comidas y apoyo a personas sin hogar y en necesidad.',
     'contact-email': 'loveunlimitedcommunityoutreach@gmail.com',
-    'contact-phone': '(502) 509-7563',
-    'contact-address': 'Central Christian Church<br>1315 E. Spring Street<br>New Albany, IN 47150',
-    'contact-hours': 'Lunes - Viernes: 9:00 AM - 5:00 PM<br>Sábado: 10:00 AM - 2:00 PM<br>Domingo: Cerrado',
+    'contact-contacts': (
+        'Stephanie Woodward - <a href="tel:+18123992954">(812) 399-2954</a><br>'
+        'Cathy Higgins - <a href="tel:+15025580642">(502) 558-0642</a>'
+    ),
+    'contact-address': (
+        'Love Unlimited c/o<br>Central Christian Church<br>'
+        '1315 E. Spring Street<br>New Albany, IN 47150'
+    ),
+    'contact-hours': 'Lunes - Viernes: 9:00 AM - 5:00 PM<br>Sábado: 1:00 PM - 3:00 PM<br>Domingo: Cerrado',
 }
 
 DEFAULT_TEAM = [

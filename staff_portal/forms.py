@@ -208,9 +208,9 @@ class SiteContentForm(StyledForm):
         if key in SINGLE_LINE_KEYS:
             body_field.widget = forms.TextInput(attrs={
                 'class': 'form-control form-control-lg',
-                'placeholder': 'e.g. loveunlimitedcommunityoutreach@gmail.com' if key == 'contact-email' else '(502) 509-7563',
+                'placeholder': 'e.g. loveunlimitedcommunityoutreach@gmail.com',
             })
-            body_field.label = 'Email address' if key == 'contact-email' else 'Phone number'
+            body_field.label = 'Email address'
             body_field.help_text = 'Plain text only — no formatting needed.'
         elif key == 'footer-tagline':
             body_field.widget = forms.Textarea(attrs={

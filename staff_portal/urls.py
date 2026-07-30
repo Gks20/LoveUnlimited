@@ -15,11 +15,6 @@ urlpatterns = [
     path('events/<int:pk>/edit/', views.EventUpdateView.as_view(), name='event_edit'),
     path('events/<int:pk>/delete/', views.EventDeleteView.as_view(), name='event_delete'),
 
-    path('posts/', views.PostListView.as_view(), name='post_list'),
-    path('posts/new/', views.PostCreateView.as_view(), name='post_create'),
-    path('posts/<int:pk>/edit/', views.PostUpdateView.as_view(), name='post_edit'),
-    path('posts/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
-
     path('content/', views.ContentListView.as_view(), name='content_list'),
     path('content/new/', views.ContentCreateView.as_view(), name='content_create'),
     path('content/<int:pk>/edit/', views.ContentUpdateView.as_view(), name='content_edit'),

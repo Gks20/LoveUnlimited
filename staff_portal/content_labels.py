@@ -44,7 +44,9 @@ CONTENT_SECTIONS = [
         [
             ('footer-tagline', 'Short tagline in the footer'),
             ('contact-email', 'Contact email address'),
-            ('contact-phone', 'Contact phone number'),
+            ('contact-contacts', 'Contact names and phone numbers'),
+            ('contact-address', 'Mailing address'),
+            ('contact-hours', 'Office and service hours'),
         ],
     ),
 ]

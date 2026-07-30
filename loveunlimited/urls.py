@@ -16,14 +16,13 @@ Including another URLconf
 from django.urls import path, include
 from django.http import HttpResponse
 from django.contrib.sitemaps.views import sitemap
-from frontend.sitemaps import StaticViewSitemap, PostSitemap
+from frontend.sitemaps import StaticViewSitemap
 from django.conf import settings
 from django.conf.urls.static import static
 from loveunlimited.health import health_check
 
 SITEMAPS = {
     'static': StaticViewSitemap,
-    'posts': PostSitemap,
 }
 
 urlpatterns = [

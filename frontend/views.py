@@ -1,17 +1,15 @@
-from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, FormView, ListView, DetailView
+from django.views.generic import TemplateView, FormView
 from django.conf import settings
 from django.core.mail import send_mail
 from django.db import models
 from calendar_app.models import Event
 from django.utils import timezone
-from django.utils.translation import get_language
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .forms import ContactForm
-from .models import ResourceCategory, Resource, Post, SiteContent, DonationSettings
+from .models import ResourceCategory, Resource, SiteContent, DonationSettings
 
 
 class HomeView(TemplateView):
@@ -23,11 +21,7 @@ class HomeView(TemplateView):
         upcoming_events = Event.objects.filter(
             date__gte=timezone.now().date()
         ).select_related('category').order_by('date')[:3]
-        lang = get_language() or 'en'
         context['upcoming_events'] = upcoming_events
-        context['latest_posts'] = Post.objects.filter(
-            is_published=True, language=lang
-        ).order_by('-published_at')[:3]
         return context
 
 
@@ -153,26 +147,3 @@ class ResourcesView(TemplateView):
             'total_results': resources_qs.count(),
         })
         return context
-
-
-class NewsListView(ListView):
-    model = Post
-    template_name = 'frontend/news_list.html'
-    context_object_name = 'posts'
-    paginate_by = 10
-
-    def get_queryset(self):
-        lang = get_language() or 'en'
-        return Post.objects.filter(is_published=True, language=lang).order_by('-published_at')
-
-
-class NewsDetailView(DetailView):
-    model = Post
-    template_name = 'frontend/news_detail.html'
-    context_object_name = 'post'
-    slug_field = 'slug'
-    slug_url_kwarg = 'slug'
-
-    def get_queryset(self):
-        lang = get_language() or 'en'
-        return Post.objects.filter(is_published=True, language=lang)

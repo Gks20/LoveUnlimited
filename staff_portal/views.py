@@ -9,10 +9,10 @@ from django.views.generic import (
 
 from calendar_app.models import Event, EventRegistration, EventCategory
 from frontend.models import (
-    Post, SiteContent, TeamMember, Resource, ResourceCategory, DonationSettings,
+    SiteContent, TeamMember, Resource, ResourceCategory, DonationSettings,
 )
 from .forms import (
-    EventForm, PostForm, SiteContentForm, SiteContentCreateForm, TeamMemberForm,
+    EventForm, SiteContentForm, SiteContentCreateForm, TeamMemberForm,
     ResourceForm, ResourceCategoryForm, DonationSettingsForm, EventCategoryForm,
 )
 from staff_portal.content_labels import CONTENT_SECTIONS
@@ -26,7 +26,6 @@ class DashboardView(StaffRequiredMixin, TemplateView):
         ctx = super().get_context_data(**kwargs)
         ctx['stats'] = {
             'upcoming_events': Event.objects.filter(date__gte=timezone.now().date()).count(),
-            'draft_posts': Post.objects.filter(is_published=False).count(),
             'registrations': EventRegistration.objects.filter(
                 event__date__gte=timezone.now().date()
             ).count(),
@@ -101,52 +100,6 @@ class EventDetailView(StaffRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['registrations'] = self.object.eventregistration_set.order_by('-registered_at')
-        return ctx
-
-
-# --- Posts ---
-
-class PostListView(StaffRequiredMixin, ListView):
-    model = Post
-    template_name = 'staff_portal/posts/list.html'
-    context_object_name = 'posts'
-    paginate_by = 20
-
-    def get_queryset(self):
-        return Post.objects.order_by('-published_at')
-
-
-class PostCreateView(StaffRequiredMixin, CreateView):
-    model = Post
-    form_class = PostForm
-    template_name = 'staff_portal/posts/form.html'
-    success_url = reverse_lazy('staff_portal:post_list')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Your article has been saved.')
-        return super().form_valid(form)
-
-
-class PostUpdateView(StaffRequiredMixin, UpdateView):
-    model = Post
-    form_class = PostForm
-    template_name = 'staff_portal/posts/form.html'
-    success_url = reverse_lazy('staff_portal:post_list')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Your article has been updated.')
-        return super().form_valid(form)
-
-
-class PostDeleteView(StaffRequiredMixin, DeleteView):
-    model = Post
-    template_name = 'staff_portal/confirm_delete.html'
-    success_url = reverse_lazy('staff_portal:post_list')
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['cancel_url'] = reverse('staff_portal:post_list')
-        ctx['object_label'] = 'post'
         return ctx
 
 
