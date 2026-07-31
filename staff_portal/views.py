@@ -15,11 +15,12 @@ from django.views.generic import (
 
 from calendar_app.models import Event, EventRegistration, EventCategory
 from frontend.models import (
-    SiteContent, TeamMember, Resource, ResourceCategory, DonationSettings,
+    SiteContent, TeamMember, Resource, ResourceCategory, DonationSettings, HomepageSettings,
 )
 from .forms import (
     EventForm, SiteContentForm, SiteContentCreateForm, TeamMemberForm,
     ResourceForm, ResourceCategoryForm, DonationSettingsForm, EventCategoryForm,
+    HomepageSettingsForm,
 )
 from staff_portal.content_labels import CONTENT_SECTIONS, CONTENT_LABELS
 from staff_portal.content_format import PLAIN_TEXT_KEYS, SINGLE_LINE_KEYS
@@ -354,3 +355,16 @@ class DonationSettingsView(StaffRequiredMixin, UpdateView):
     def get_success_url(self):
         messages.success(self.request, 'Donation settings saved.')
         return reverse('staff_portal:donation_settings')
+
+
+class HomepageSettingsView(StaffRequiredMixin, UpdateView):
+    model = HomepageSettings
+    form_class = HomepageSettingsForm
+    template_name = 'staff_portal/settings/homepage.html'
+
+    def get_object(self):
+        return HomepageSettings.load()
+
+    def get_success_url(self):
+        messages.success(self.request, 'Homepage hero settings saved.')
+        return reverse('staff_portal:homepage_settings')

@@ -50,88 +50,54 @@
 
     <ul class="nav flex-column staff-nav flex-grow-1 px-2">
 
+        <li class="staff-nav-section" aria-hidden="true">Overview</li>
         <li class="nav-item">
-
             <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'staff_portal:dashboard' %}">
-
                 <i class="fas fa-home me-2" aria-hidden="true"></i>
-
-                <span>Home</span>
-
-                <small class="d-block staff-nav-hint">Start here</small>
-
+                <span>Dashboard</span>
             </a>
-
         </li>
 
+        <li class="staff-nav-section" aria-hidden="true">Website</li>
         <li class="nav-item">
-
-            <a class="nav-link {% if 'event' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'staff_portal:event_list' %}">
-
-                <i class="fas fa-calendar me-2" aria-hidden="true"></i>
-
-                <span>Events</span>
-
-                <small class="d-block staff-nav-hint">Calendar & sign-ups</small>
-
-            </a>
-
-        </li>
-
-        <li class="nav-item">
-
             <a class="nav-link {% if 'content' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'staff_portal:content_list' %}">
-
                 <i class="fas fa-pen me-2" aria-hidden="true"></i>
-
-                <span>Edit Website</span>
-
-                <small class="d-block staff-nav-hint">Click text on the page preview</small>
-
+                <span>Edit Pages</span>
             </a>
-
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'homepage_settings' %}active{% endif %}" href="{% url 'staff_portal:homepage_settings' %}">
+                <i class="fas fa-image me-2" aria-hidden="true"></i>
+                <span>Homepage Hero</span>
+            </a>
         </li>
 
+        <li class="staff-nav-section" aria-hidden="true">Community</li>
         <li class="nav-item">
-
+            <a class="nav-link {% if 'event' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'staff_portal:event_list' %}">
+                <i class="fas fa-calendar me-2" aria-hidden="true"></i>
+                <span>Events</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {% if 'team' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'staff_portal:team_list' %}">
-
                 <i class="fas fa-users me-2" aria-hidden="true"></i>
-
                 <span>Our Team</span>
-
-                <small class="d-block staff-nav-hint">Leadership photos & bios</small>
-
             </a>
-
         </li>
-
         <li class="nav-item">
-
             <a class="nav-link {% if 'resource' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'staff_portal:resource_list' %}">
-
                 <i class="fas fa-hands-helping me-2" aria-hidden="true"></i>
-
                 <span>Resources</span>
-
-                <small class="d-block staff-nav-hint">Community help listings</small>
-
             </a>
-
         </li>
 
+        <li class="staff-nav-section" aria-hidden="true">Settings</li>
         <li class="nav-item">
-
             <a class="nav-link {% if 'donation' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'staff_portal:donation_settings' %}">
-
                 <i class="fas fa-hand-holding-heart me-2" aria-hidden="true"></i>
-
                 <span>Donations</span>
-
-                <small class="d-block staff-nav-hint">Donate page settings</small>
-
             </a>
-
         </li>
 
     </ul>

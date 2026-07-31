@@ -1,7 +1,7 @@
 {% extends 'staff_portal/base.html' %}
 {% load static %}
 
-{% block title %}Edit Website{% endblock %}
+{% block title %}Edit Pages{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/staff_content_preview.css' %}">
@@ -12,10 +12,9 @@
 {% block content %}
 <div class="container-fluid py-4 staff-visual-editor">
     <div class="staff-page-header mb-3">
-        <h1 class="staff-page-title mb-2">Edit Website</h1>
+        <h1 class="staff-page-title mb-2">Edit Pages</h1>
         <p class="staff-lead text-muted mb-0">
-            Click any <span class="staff-editable-demo">highlighted text</span> on the page preview to edit it.
-            Changes save for the language you have selected.
+            Pick a page and language, then click any <span class="staff-editable-demo">highlighted text</span> in the preview to change it.
         </p>
     </div>
 
@@ -50,7 +49,10 @@
 
     <div class="staff-visual-legend alert alert-light border mb-3 py-2 px-3">
         <i class="fas fa-info-circle text-primary me-2" aria-hidden="true"></i>
-        <strong>Tip:</strong> Team photos, events, resources, and donation amounts are edited in their own sections — not here.
+        <strong>Tip:</strong> Click highlighted text to edit. Team, events, resources, donations, and the homepage hero photo are edited in their own menu sections.
+        {% if current_page == 'home' %}
+        <a href="{% url 'staff_portal:homepage_settings' %}" class="alert-link ms-1">Change homepage hero image</a>
+        {% endif %}
     </div>
 
     <div class="staff-visual-frame-wrap card staff-form-card overflow-hidden">

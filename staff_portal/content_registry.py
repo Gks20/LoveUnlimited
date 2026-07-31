@@ -3,7 +3,7 @@
 from django.utils import timezone
 
 from calendar_app.models import Event
-from frontend.models import DonationSettings, Resource, ResourceCategory, SiteContent, TeamMember
+from frontend.models import DonationSettings, HomepageSettings, Resource, ResourceCategory, SiteContent, TeamMember
 
 # Plain-text UI labels (single line, no HTML)
 UI_TEXT_DEFAULTS = {
@@ -20,6 +20,7 @@ UI_TEXT_DEFAULTS = {
     'ui-footer-rights': 'All rights reserved.',
     'ui-footer-staff-login': 'Staff Login',
     'ui-home-donate-now': 'Donate Now',
+    'ui-home-brand': 'Love Unlimited',
     'ui-home-learn-more': 'Learn More',
     'ui-home-our-mission': 'Our Mission',
     'ui-home-how-we-help': 'How We Help',
@@ -62,6 +63,21 @@ UI_TEXT_DEFAULTS = {
     'ui-donate-btn': 'Donate Now',
     'ui-donate-other-ways': 'Other Ways to Support Us',
     'ui-donate-tax-heading': 'Tax Deductible',
+    'ui-calendar-title': 'Events & Calendar',
+    'ui-calendar-lead': 'Join us for upcoming events, volunteer opportunities, and community gatherings. Everyone is welcome!',
+    'ui-calendar-upcoming': 'Upcoming Events',
+    'ui-calendar-past': 'Past Events',
+    'ui-calendar-empty-title': 'No Upcoming Events',
+    'ui-calendar-empty-lead': 'Check back soon for upcoming events and volunteer opportunities!',
+    'ui-calendar-contact-updates': 'Contact Us for Updates',
+    'ui-calendar-stay-updated': 'Stay Updated',
+    'ui-calendar-stay-lead': 'Contact us to hear about upcoming events, volunteer opportunities, and community news.',
+    'ui-contact-form-title': 'Send Us a Message',
+    'ui-contact-send-message': 'Send Message',
+    'ui-contact-volunteer-title': 'Volunteer With Us',
+    'ui-contact-volunteer-lead': 'Join our amazing team of volunteers and make a direct impact in your community. We have opportunities for individuals, families, and groups.',
+    'ui-resources-title': 'Community Resources',
+    'ui-resources-lead': 'Search and filter verified local assistance programs. Data is maintained by our team.',
   },
   'es': {
     'ui-nav-home': 'Inicio',
@@ -76,6 +92,7 @@ UI_TEXT_DEFAULTS = {
     'ui-footer-rights': 'Todos los derechos reservados.',
     'ui-footer-staff-login': 'Acceso del Personal',
     'ui-home-donate-now': 'Donar Ahora',
+    'ui-home-brand': 'Love Unlimited',
     'ui-home-learn-more': 'Conocer Más',
     'ui-home-our-mission': 'Nuestra Misión',
     'ui-home-how-we-help': 'Cómo Ayudamos',
@@ -120,6 +137,21 @@ UI_TEXT_DEFAULTS = {
     'ui-donate-btn': 'Donar Ahora',
     'ui-donate-other-ways': 'Otras Formas de Apoyarnos',
     'ui-donate-tax-heading': 'Deducible de Impuestos',
+    'ui-calendar-title': 'Eventos y Calendario',
+    'ui-calendar-lead': 'Únase a nuestros eventos, oportunidades de voluntariado y reuniones comunitarias. ¡Todos son bienvenidos!',
+    'ui-calendar-upcoming': 'Próximos Eventos',
+    'ui-calendar-past': 'Eventos Pasados',
+    'ui-calendar-empty-title': 'No Hay Próximos Eventos',
+    'ui-calendar-empty-lead': '¡Vuelva pronto para ver eventos y oportunidades de voluntariado!',
+    'ui-calendar-contact-updates': 'Contáctenos para Actualizaciones',
+    'ui-calendar-stay-updated': 'Manténgase Informado',
+    'ui-calendar-stay-lead': 'Contáctenos para conocer eventos, oportunidades de voluntariado y noticias comunitarias.',
+    'ui-contact-form-title': 'Envíenos un Mensaje',
+    'ui-contact-send-message': 'Enviar Mensaje',
+    'ui-contact-volunteer-title': 'Sea Voluntario con Nosotros',
+    'ui-contact-volunteer-lead': 'Únase a nuestro equipo de voluntarios y marque la diferencia en su comunidad. Hay oportunidades para personas, familias y grupos.',
+    'ui-resources-title': 'Recursos Comunitarios',
+    'ui-resources-lead': 'Busque y filtre programas locales de asistencia verificados. Nuestro equipo mantiene esta información.',
   },
 }
 
@@ -167,6 +199,14 @@ PREVIEW_PAGES = {
     'donate': {
         'label': 'Donate',
         'template': 'frontend/donate.html',
+    },
+    'calendar': {
+        'label': 'Events',
+        'template': 'frontend/calendar.html',
+    },
+    'resources': {
+        'label': 'Resources',
+        'template': 'frontend/resources.html',
     },
 }
 
@@ -216,6 +256,12 @@ def build_preview_context(page_id, request, *, edit_mode=False):
         context['form'] = ContactForm()
     elif page_id == 'donate':
         context['donation_settings'] = DonationSettings.load()
+    elif page_id == 'calendar':
+        today = timezone.now().date()
+        base_qs = Event.objects.filter(is_public=True).select_related('category')
+        context['upcoming_events'] = base_qs.filter(date__gte=today).order_by('date', 'start_time')
+        context['past_events'] = base_qs.filter(date__lt=today).order_by('-date', '-start_time')
+        context['registration_modal'] = None
     elif page_id == 'resources':
         categories = ResourceCategory.objects.all()
         resources_qs = Resource.objects.filter(is_active=True).select_related('category')

@@ -57,7 +57,7 @@
             {% endif %}
             <div class="card" aria-labelledby="contact-form-heading">
                 <div class="card-header bg-primary text-white">
-                    <h4 id="contact-form-heading" class="mb-0"><i class="fas fa-paper-plane me-2" aria-hidden="true"></i>Send Us a Message</h4>
+                    <h4 id="contact-form-heading" class="mb-0"><i class="fas fa-paper-plane me-2" aria-hidden="true"></i>{% site_text 'ui-contact-form-title' 'Send Us a Message' %}</h4>
                 </div>
                 <div class="card-body">
                     <form method="post" novalidate{% if preview_mode %} onsubmit="return false;"{% endif %}>
@@ -126,7 +126,7 @@
                             {% for e in form.message.errors %}<div class="invalid-feedback d-block" id="{{ form.message.id_for_label }}_error">{{ e }}</div>{% endfor %}
                         </div>
                         <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-paper-plane me-2" aria-hidden="true"></i>Send Message
+                            <i class="fas fa-paper-plane me-2" aria-hidden="true"></i>{% site_text 'ui-contact-send-message' 'Send Message' %}
                         </button>
                     </form>
                 </div>
@@ -139,8 +139,8 @@
         <div class="col-12">
             <div class="bg-light rounded p-5">
                 <div class="text-center">
-                    <h2 class="mb-4"><i class="fas fa-hands-helping text-primary me-2" aria-hidden="true"></i>Volunteer With Us</h2>
-                    <p class="lead mb-4">Join our amazing team of volunteers and make a direct impact in your community. We have opportunities for individuals, families, and groups.</p>
+                    <h2 class="mb-4"><i class="fas fa-hands-helping text-primary me-2" aria-hidden="true"></i>{% site_text 'ui-contact-volunteer-title' 'Volunteer With Us' %}</h2>
+                    <p class="lead mb-4">{% site_text 'ui-contact-volunteer-lead' 'Join our amazing team of volunteers and make a direct impact in your community. We have opportunities for individuals, families, and groups.' %}</p>
                     
                     <div class="row">
                         <div class="col-md-4 mb-3">

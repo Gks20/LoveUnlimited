@@ -4,11 +4,12 @@
 {% block title %}Love Unlimited{% endblock %}
 
 {% block content %}
-<section class="hero-section bg-primary text-white py-5">
+<section class="hero-section text-white py-5{% if homepage_settings.has_hero_image %} hero-section--image{% endif %}{% if homepage_settings.hero_use_gradient %} hero-section--gradient{% endif %}"
+    {% if homepage_settings.has_hero_image %}style="--hero-bg-image: url('{{ homepage_settings.hero_image.url }}');"{% endif %}>
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-4">Love Unlimited</h1>
+                <h1 class="display-4 fw-bold mb-4">{% site_text 'ui-home-brand' 'Love Unlimited' %}</h1>
                 <p class="lead mb-4">{% site_content_html 'home-hero' "We're a passionate grassroots organization dedicated to serving our community's most vulnerable members." %}</p>
                 <div class="d-flex flex-wrap gap-3 hero-actions">
                     <button type="button" class="btn btn-warning btn-lg" zeffy-form-link="{{ zeffy_form_link }}">
@@ -18,8 +19,13 @@
                 </div>
             </div>
             <div class="col-lg-6 text-center">
-                <img src="{% static 'Img/LogoMain.png' %}" class="img-fluid rounded hero-logo" alt="Love Unlimited organization logo"
-                width="500" height="500">
+                {% if homepage_settings.has_hero_image %}
+                <div class="hero-logo-frame">
+                    <img src="{% static 'Img/LogoMain.png' %}" class="img-fluid rounded hero-logo" alt="Love Unlimited organization logo" width="500" height="500">
+                </div>
+                {% else %}
+                <img src="{% static 'Img/LogoMain.png' %}" class="img-fluid rounded hero-logo" alt="Love Unlimited organization logo" width="500" height="500">
+                {% endif %}
             </div>
         </div>
     </div>

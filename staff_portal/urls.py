@@ -33,4 +33,5 @@ urlpatterns = [
     path('resources/<int:pk>/delete/', views.ResourceDeleteView.as_view(), name='resource_delete'),
 
     path('settings/donations/', views.DonationSettingsView.as_view(), name='donation_settings'),
+    path('settings/homepage/', views.HomepageSettingsView.as_view(), name='homepage_settings'),
 ]

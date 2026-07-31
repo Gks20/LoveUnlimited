@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db import models
-from .models import ResourceCategory, Resource, SiteContent, Post, DonationSettings, TeamMember
+from .models import ResourceCategory, Resource, SiteContent, Post, DonationSettings, TeamMember, HomepageSettings
 
 
 @admin.register(ResourceCategory)
@@ -51,6 +51,17 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     date_hierarchy = 'published_at'
     ordering = ('-published_at',)
+
+
+@admin.register(HomepageSettings)
+class HomepageSettingsAdmin(admin.ModelAdmin):
+    fields = ('hero_image', 'hero_use_gradient')
+
+    def has_add_permission(self, request):
+        return not HomepageSettings.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(DonationSettings)

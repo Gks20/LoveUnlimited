@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static site_extras %}
 
-{% block title %}Events Calendar - Love Unlimited{% endblock %}
+{% block title %}{% site_text 'ui-calendar-title' 'Events & Calendar' %} - Love Unlimited{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/events.css' %}">
@@ -11,15 +11,15 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-8 mx-auto text-center mb-5 events-page-header">
-            <h1 class="display-5 mb-3">Events & Calendar</h1>
-            <p class="lead">Join us for upcoming events, volunteer opportunities, and community gatherings. Everyone is welcome!</p>
+            <h1 class="display-5 mb-3">{% site_text 'ui-calendar-title' 'Events & Calendar' %}</h1>
+            <p class="lead">{% site_text 'ui-calendar-lead' 'Join us for upcoming events, volunteer opportunities, and community gatherings. Everyone is welcome!' %}</p>
         </div>
     </div>
 
     {% if upcoming_events or past_events %}
         {% if upcoming_events %}
         <section class="mb-4" aria-labelledby="upcoming-events-heading">
-            <h2 id="upcoming-events-heading" class="events-section-title">Upcoming Events</h2>
+            <h2 id="upcoming-events-heading" class="events-section-title">{% site_text 'ui-calendar-upcoming' 'Upcoming Events' %}</h2>
             <div class="row">
                 {% for event in upcoming_events %}
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -32,7 +32,7 @@
 
         {% if past_events %}
         <section class="events-past-section" aria-labelledby="past-events-heading">
-            <h2 id="past-events-heading" class="events-section-title events-section-title--past">Past Events</h2>
+            <h2 id="past-events-heading" class="events-section-title events-section-title--past">{% site_text 'ui-calendar-past' 'Past Events' %}</h2>
             <div class="row">
                 {% for event in past_events %}
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -45,10 +45,10 @@
     {% else %}
         <div class="text-center py-5 empty-state">
             <i class="fas fa-calendar-times fa-4x text-muted mb-4" aria-hidden="true"></i>
-            <h3 class="text-muted">No Upcoming Events</h3>
-            <p class="lead text-muted">Check back soon for upcoming events and volunteer opportunities!</p>
+            <h3 class="text-muted">{% site_text 'ui-calendar-empty-title' 'No Upcoming Events' %}</h3>
+            <p class="lead text-muted">{% site_text 'ui-calendar-empty-lead' 'Check back soon for upcoming events and volunteer opportunities!' %}</p>
             <a href="{% url 'frontend:contact' %}" class="btn btn-primary">
-                <i class="fas fa-envelope me-2" aria-hidden="true"></i>Contact Us for Updates
+                <i class="fas fa-envelope me-2" aria-hidden="true"></i>{% site_text 'ui-calendar-contact-updates' 'Contact Us for Updates' %}
             </a>
         </div>
     {% endif %}
@@ -105,10 +105,10 @@
     <div class="row mt-5">
         <div class="col-12">
             <div class="bg-primary text-white rounded p-5 text-center events-cta-banner">
-                <h3 class="mb-3">Stay Updated</h3>
-                <p class="mb-4">Contact us to hear about upcoming events, volunteer opportunities, and community news.</p>
+                <h3 class="mb-3">{% site_text 'ui-calendar-stay-updated' 'Stay Updated' %}</h3>
+                <p class="mb-4">{% site_text 'ui-calendar-stay-lead' 'Contact us to hear about upcoming events, volunteer opportunities, and community news.' %}</p>
                 <a href="{% url 'frontend:contact' %}" class="btn btn-warning btn-lg">
-                    <i class="fas fa-envelope me-2" aria-hidden="true"></i>Contact Us
+                    <i class="fas fa-envelope me-2" aria-hidden="true"></i>{% site_text 'ui-contact-title' 'Contact Us' %}
                 </a>
             </div>
         </div>

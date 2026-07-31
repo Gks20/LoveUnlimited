@@ -100,6 +100,35 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
 
+class HomepageSettings(models.Model):
+    hero_image = models.ImageField(
+        upload_to='homepage/',
+        blank=True,
+        null=True,
+        help_text='Optional background photo for the homepage hero. Leave blank to use the color gradient only.',
+    )
+    hero_use_gradient = models.BooleanField(
+        default=True,
+        help_text='Overlay the blue/red brand gradient on top of the hero photo.',
+    )
+
+    class Meta:
+        verbose_name = 'Homepage settings'
+        verbose_name_plural = 'Homepage settings'
+
+    def __str__(self):
+        return 'Homepage settings'
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+    @property
+    def has_hero_image(self):
+        return bool(self.hero_image)
+
+
 class DonationSettings(models.Model):
     zeffy_form_link = models.URLField(
         max_length=500,

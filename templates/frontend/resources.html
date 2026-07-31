@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static i18n site_extras %}
 
-{% block title %}{% trans 'Local Resources' %} - Love Unlimited{% endblock %}
+{% block title %}{% site_text 'ui-resources-title' 'Community Resources' %} - Love Unlimited{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/resources.css' %}">
@@ -10,8 +10,8 @@
 {% block content %}
 <div id="top" class="container py-5">
     <div class="resources-page-header mb-4">
-        <h1 class="display-5 page-heading mb-2">{% trans 'Community Resources' %}</h1>
-        <p class="lead page-subheading mb-0">{% trans 'Search and filter verified local assistance programs. Data is maintained by our team.' %}</p>
+        <h1 class="display-5 page-heading mb-2">{% site_text 'ui-resources-title' 'Community Resources' %}</h1>
+        <p class="lead page-subheading mb-0">{% site_text 'ui-resources-lead' 'Search and filter verified local assistance programs. Data is maintained by our team.' %}</p>
     </div>
 
     <div class="card resources-toolbar mb-4">

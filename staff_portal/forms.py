@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 from calendar_app.models import Event, EventCategory
 from frontend.models import (
-    Post, SiteContent, TeamMember, Resource, ResourceCategory, DonationSettings,
+    Post, SiteContent, TeamMember, Resource, ResourceCategory, DonationSettings, HomepageSettings,
 )
 from staff_portal.content_format import PLAIN_TEXT_KEYS, SINGLE_LINE_KEYS
 from staff_portal.rich_text import sanitize_html
@@ -379,6 +379,28 @@ class EventCategoryForm(StyledForm):
     class Meta:
         model = EventCategory
         fields = ['name', 'color', 'description']
+
+
+class HomepageSettingsForm(StyledForm):
+    field_groups = [
+        (
+            'Homepage hero image',
+            'Upload a photo for the top of your homepage. The blue/red gradient can stay on as a brand filter.',
+            ['hero_image', 'hero_use_gradient'],
+        ),
+    ]
+
+    class Meta:
+        model = HomepageSettings
+        fields = ['hero_image', 'hero_use_gradient']
+        labels = {
+            'hero_image': 'Hero background photo',
+            'hero_use_gradient': 'Keep blue/red gradient overlay',
+        }
+        help_texts = {
+            'hero_image': 'Recommended: wide landscape photo (at least 1200px wide). Leave blank to use the color gradient only.',
+            'hero_use_gradient': 'When checked, your photo shows through the Love Unlimited brand colors.',
+        }
         widgets = {
             'color': forms.TextInput(attrs={'type': 'color'}),
             'description': forms.Textarea(attrs={'rows': 2}),
