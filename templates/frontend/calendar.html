@@ -53,54 +53,7 @@
         </div>
     {% endif %}
 
-    <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id="registrationForm" method="post" action="" novalidate>
-                    {% csrf_token %}
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="registrationModalLabel">Event Registration</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="registrationFormAlert" class="alert alert-danger d-none" role="alert"></div>
-                        <p class="text-muted mb-3" id="registrationEventTitle"></p>
-                        <div class="mb-3">
-                            <label for="regFirstName" class="form-label">First Name *</label>
-                            <input type="text" class="form-control" id="regFirstName" name="first_name" required autocomplete="given-name">
-                            <div class="invalid-feedback d-block" id="regFirstNameError"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="regLastName" class="form-label">Last Name *</label>
-                            <input type="text" class="form-control" id="regLastName" name="last_name" required autocomplete="family-name">
-                            <div class="invalid-feedback d-block" id="regLastNameError"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="regEmail" class="form-label">Email Address *</label>
-                            <input type="email" class="form-control" id="regEmail" name="email" required autocomplete="email">
-                            <div class="invalid-feedback d-block" id="regEmailError"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="regPhone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="regPhone" name="phone" autocomplete="tel">
-                            <div class="invalid-feedback d-block" id="regPhoneError"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="regNotes" class="form-label">Special Notes/Requirements</label>
-                            <textarea class="form-control" id="regNotes" name="notes" rows="3"></textarea>
-                            <div class="invalid-feedback d-block" id="regNotesError"></div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-check me-1" aria-hidden="true"></i>Register
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    {% include 'includes/event_registration_modal.html' %}
 
     <div class="row mt-5">
         <div class="col-12">
@@ -114,88 +67,8 @@
         </div>
     </div>
 </div>
-
-{% if registration_modal %}
-{{ registration_modal|json_script:"registration-modal-data" }}
-{% endif %}
 {% endblock %}
 
 {% block extra_js %}
-<script>
-(function () {
-    const modalEl = document.getElementById('registrationModal');
-    const form = document.getElementById('registrationForm');
-    const fieldMap = {
-        first_name: { input: 'regFirstName', error: 'regFirstNameError' },
-        last_name: { input: 'regLastName', error: 'regLastNameError' },
-        email: { input: 'regEmail', error: 'regEmailError' },
-        phone: { input: 'regPhone', error: 'regPhoneError' },
-        notes: { input: 'regNotes', error: 'regNotesError' },
-    };
-
-    function clearFieldErrors() {
-        document.getElementById('registrationFormAlert').classList.add('d-none');
-        Object.values(fieldMap).forEach(function (ids) {
-            const input = document.getElementById(ids.input);
-            const errorEl = document.getElementById(ids.error);
-            input.classList.remove('is-invalid');
-            input.removeAttribute('aria-invalid');
-            input.removeAttribute('aria-describedby');
-            errorEl.textContent = '';
-        });
-    }
-
-    function applyFieldErrors(errors) {
-        if (!errors) return;
-        Object.keys(fieldMap).forEach(function (field) {
-            const fieldErrors = errors[field];
-            if (!fieldErrors || !fieldErrors.length) return;
-            const ids = fieldMap[field];
-            const input = document.getElementById(ids.input);
-            const errorEl = document.getElementById(ids.error);
-            input.classList.add('is-invalid');
-            input.setAttribute('aria-invalid', 'true');
-            input.setAttribute('aria-describedby', ids.error);
-            errorEl.textContent = fieldErrors.map(function (e) { return e.message; }).join(' ');
-        });
-    }
-
-    function populateForm(data) {
-        if (!data) return;
-        Object.keys(fieldMap).forEach(function (field) {
-            if (data[field] !== undefined) {
-                document.getElementById(fieldMap[field].input).value = data[field];
-            }
-        });
-    }
-
-    function openModalForEvent(eventId, registerUrl, eventTitle) {
-        clearFieldErrors();
-        form.action = registerUrl;
-        document.getElementById('registrationEventTitle').textContent = eventTitle || '';
-        bootstrap.Modal.getOrCreateInstance(modalEl).show();
-    }
-
-    modalEl.addEventListener('show.bs.modal', function (event) {
-        clearFieldErrors();
-        const button = event.relatedTarget;
-        if (button) {
-            form.action = button.getAttribute('data-register-url');
-            document.getElementById('registrationEventTitle').textContent = button.getAttribute('data-event-title') || '';
-        }
-    });
-
-    const modalDataEl = document.getElementById('registration-modal-data');
-    if (modalDataEl) {
-        const modalData = JSON.parse(modalDataEl.textContent);
-        const eventId = modalData.event_id;
-        const trigger = document.querySelector('[data-event-id="' + eventId + '"]');
-        if (trigger) {
-            populateForm(modalData.data);
-            openModalForEvent(eventId, trigger.getAttribute('data-register-url'), trigger.getAttribute('data-event-title'));
-            applyFieldErrors(modalData.errors);
-        }
-    }
-})();
-</script>
+<script src="{% static 'js/event-registration.js' %}"></script>
 {% endblock %}

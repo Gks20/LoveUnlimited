@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static i18n site_extras %}
+{% load static site_extras %}
 
 {% block title %}{% site_text 'ui-resources-title' 'Community Resources' %} - Love Unlimited{% endblock %}
 
@@ -15,54 +15,54 @@
     </div>
 
     <section class="resources-helplines mb-4" aria-labelledby="resources-helplines-heading">
-        <h2 id="resources-helplines-heading" class="visually-hidden">{% trans 'Emergency and quick help numbers' %}</h2>
+        <h2 id="resources-helplines-heading" class="visually-hidden">{% site_text 'ui-resources-helplines-label' 'Emergency and quick help numbers' %}</h2>
         <div class="resources-helplines-emergency">
             <div class="resources-helpline-item resources-helpline-item--emergency">
-                <span class="resources-helpline-label">{% trans 'Emergency' %}</span>
+                <span class="resources-helpline-label">{% site_text 'ui-resources-emergency' 'Emergency' %}</span>
                 <a href="tel:911" class="resources-helpline-value">911</a>
             </div>
             <div class="resources-helpline-item resources-helpline-item--emergency">
-                <span class="resources-helpline-label">{% trans 'Crisis Lifeline' %}</span>
+                <span class="resources-helpline-label">{% site_text 'ui-resources-crisis-lifeline' 'Crisis Lifeline' %}</span>
                 <a href="tel:988" class="resources-helpline-value">988</a>
-                <span class="resources-helpline-note">{% trans 'Suicide & Crisis' %}</span>
+                <span class="resources-helpline-note">{% site_text 'ui-resources-suicide-crisis' 'Suicide & Crisis' %}</span>
             </div>
             <div class="resources-helpline-item resources-helpline-item--emergency">
-                <span class="resources-helpline-label">{% trans 'Domestic Violence' %}</span>
+                <span class="resources-helpline-label">{% site_text 'ui-resources-domestic-violence' 'Domestic Violence' %}</span>
                 <a href="tel:+18007997233" class="resources-helpline-value">1-800-799-7233</a>
             </div>
         </div>
         <div class="resources-helplines-quick">
             <a href="tel:211" class="resources-quick-link">
                 <i class="fas fa-phone" aria-hidden="true"></i>
-                <span><strong>{% trans 'Call 211' %}</strong> — {% trans '24/7 resource helpline' %}</span>
+                <span><strong>{% site_text 'ui-resources-call-211' 'Call 211' %}</strong> — {% site_text 'ui-resources-211-desc' '24/7 resource helpline' %}</span>
             </a>
             <a href="tel:+18129135368" class="resources-quick-link">
                 <i class="fas fa-home" aria-hidden="true"></i>
-                <span><strong>{% trans 'White Flag Shelter' %}</strong> — (812) 913-5368</span>
+                <span><strong>{% site_text 'ui-resources-white-flag' 'White Flag Shelter' %}</strong> — (812) 913-5368</span>
             </a>
             <span class="resources-quick-link">
                 <i class="fas fa-utensils" aria-hidden="true"></i>
-                <span><strong>Love Unlimited</strong> — {% trans 'Saturday meals' %}</span>
+                <span><strong>Love Unlimited</strong> — {% site_text 'ui-resources-saturday-meals' 'Saturday meals' %}</span>
             </span>
             <a href="tel:988" class="resources-quick-link">
                 <i class="fas fa-heartbeat" aria-hidden="true"></i>
-                <span><strong>{% trans 'Crisis Support' %}</strong> — {% trans 'Call or text 988' %}</span>
+                <span><strong>{% site_text 'ui-resources-crisis-support' 'Crisis Support' %}</strong> — {% site_text 'ui-resources-call-text-988' 'Call or text 988' %}</span>
             </a>
         </div>
     </section>
 
     <div class="card resources-toolbar mb-4">
         <div class="card-body">
-            <form method="get" aria-label="{% trans 'Resource search and filters' %}">
+            <form method="get" aria-label="{% site_text 'ui-resources-search-label' 'Search resources' %}">
                 <div class="row g-3 align-items-end">
                     <div class="col-lg-5">
-                        <label for="resource-search" class="form-label">{% trans 'Search resources' %}</label>
-                        <input id="resource-search" name="q" value="{{ query }}" type="search" class="form-control resource-search" placeholder="{% trans 'Search by name, service, or keyword…' %}">
+                        <label for="resource-search" class="form-label">{% site_text 'ui-resources-search-label' 'Search resources' %}</label>
+                        <input id="resource-search" name="q" value="{{ query }}" type="search" class="form-control resource-search" placeholder="{% site_text 'ui-resources-search-placeholder' 'Search by name, service, or keyword…' %}">
                     </div>
                     <div class="col-lg-4">
-                        <label for="category" class="form-label">{% trans 'Category' %}</label>
+                        <label for="category" class="form-label">{% site_text 'ui-resources-category-label' 'Category' %}</label>
                         <select id="category" name="category" class="form-select">
-                            <option value="">{% trans 'All Categories' %}</option>
+                            <option value="">{% site_text 'ui-resources-all-categories' 'All Categories' %}</option>
                             {% for cat in categories %}
                                 <option value="{{ cat.slug }}" {% if selected_category == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
                             {% endfor %}
@@ -70,22 +70,26 @@
                     </div>
                     <div class="col-lg-3">
                         <div class="d-flex flex-wrap gap-2">
-                            <button type="submit" class="btn btn-primary flex-grow-1">{% trans 'Search' %}</button>
+                            <button type="submit" class="btn btn-primary flex-grow-1">{% site_text 'ui-resources-search-btn' 'Search' %}</button>
                             {% if query or selected_category %}
-                            <a href="{% url 'frontend:resources' %}" class="btn btn-outline-secondary">{% trans 'Clear' %}</a>
+                            <a href="{% url 'frontend:resources' %}" class="btn btn-outline-secondary">{% site_text 'ui-resources-clear-btn' 'Clear' %}</a>
                             {% endif %}
                         </div>
                     </div>
                 </div>
                 <p class="resources-result-count mt-3 mb-0" aria-live="polite">
-                    {% blocktrans count counter=total_results %}{{ counter }} resource found{% plural %}{{ counter }} resources found{% endblocktrans %}
+                    {% if total_results == 1 %}
+                        {% site_text 'ui-resources-one-result' '1 resource found' %}
+                    {% else %}
+                        {{ total_results }} {% site_text 'ui-resources-many-results' 'resources found' %}
+                    {% endif %}
                 </p>
             </form>
         </div>
     </div>
 
     {% if categories and not query and not selected_category %}
-    <nav class="resources-category-nav mb-4" aria-label="{% trans 'Jump to category' %}">
+    <nav class="resources-category-nav mb-4" aria-label="{% site_text 'ui-resources-jump-category' 'Jump to category' %}">
         {% for cat in categories %}
         <a class="resources-category-pill" href="#cat-{{ cat.slug }}">{{ cat.name }}</a>
         {% endfor %}
@@ -96,13 +100,13 @@
         {% if query or selected_category %}
     <div class="alert alert-warning text-center mb-4" role="status">
         <i class="fas fa-search me-2" aria-hidden="true"></i>
-        {% blocktrans %}No resources match your search. Try different keywords or{% endblocktrans %}
-        <a href="{% url 'frontend:resources' %}">{% trans 'view all resources' %}</a>.
+        {% site_text 'ui-resources-no-match' 'No resources match your search. Try different keywords or' %}
+        <a href="{% url 'frontend:resources' %}">{% site_text 'ui-resources-view-all' 'view all resources' %}</a>.
     </div>
         {% endif %}
     {% endif %}
 
-    <div class="row g-4" aria-label="{% trans 'Resource listings' %}">
+    <div class="row g-4" aria-label="{% site_text 'ui-resources-listings-label' 'Resource listings' %}">
         {% for cat, resources in grouped_resources.items %}
         <div class="col-lg-6" id="cat-{{ cat.slug }}">
             <article class="card resource-category-card h-100">
@@ -127,7 +131,7 @@
                                 <li><i class="fas fa-clock" aria-hidden="true"></i>{{ r.hours }}</li>
                                 {% endif %}
                                 {% if r.website %}
-                                <li><i class="fas fa-globe" aria-hidden="true"></i><a href="{{ r.website }}" target="_blank" rel="noopener">{% trans 'Visit website' %}</a></li>
+                                <li><i class="fas fa-globe" aria-hidden="true"></i><a href="{{ r.website }}" target="_blank" rel="noopener">{% site_text 'ui-resources-visit-website' 'Visit website' %}</a></li>
                                 {% endif %}
                             </ul>
                             {% if r.tags %}
@@ -140,8 +144,8 @@
                         </ul>
                     {% else %}
                         <p class="text-muted mb-0">
-                            {% trans 'No resources in this category' %}{% if query %} {% blocktrans %}matching "{{ query }}"{% endblocktrans %}{% endif %}.
-                            {% if not query %} {% trans 'Check back later or call 211 for assistance.' %}{% endif %}
+                            {% site_text 'ui-resources-none-in-category' 'No resources in this category' %}{% if query %} {% site_text 'ui-resources-matching' 'matching' %} "{{ query }}"{% endif %}.
+                            {% if not query %} {% site_text 'ui-resources-check-back' 'Check back later or call 211 for assistance.' %}{% endif %}
                         </p>
                     {% endif %}
                 </div>
@@ -150,21 +154,21 @@
         {% empty %}
         <div class="col-12 text-center py-5 empty-state">
             <i class="fas fa-hands-helping fa-4x text-muted mb-4" aria-hidden="true"></i>
-            <h3 class="text-muted">{% trans 'Resources Coming Soon' %}</h3>
-            <p class="lead text-muted">{% trans 'Our team is building this directory. Call 211 for immediate assistance.' %}</p>
+            <h3 class="text-muted">{% site_text 'ui-resources-coming-soon' 'Resources Coming Soon' %}</h3>
+            <p class="lead text-muted">{% site_text 'ui-resources-building' 'Our team is building this directory. Call 211 for immediate assistance.' %}</p>
         </div>
         {% endfor %}
     </div>
 
     <section class="resources-tips mt-5" id="access" aria-labelledby="resources-tips-heading">
-        <h2 id="resources-tips-heading" class="h5 text-center mb-4">{% trans 'Before You Go' %}</h2>
+        <h2 id="resources-tips-heading" class="h5 text-center mb-4">{% site_text 'ui-resources-before-you-go' 'Before You Go' %}</h2>
         <div class="row g-3">
             <div class="col-sm-6 col-lg-3">
                 <div class="resources-tip">
                     <i class="fas fa-phone" aria-hidden="true"></i>
                     <div>
-                        <strong>{% trans 'Call first' %}</strong>
-                        <p>{% trans 'Verify hours, availability, and requirements.' %}</p>
+                        <strong>{% site_text 'ui-resources-tip-call-title' 'Call first' %}</strong>
+                        <p>{% site_text 'ui-resources-tip-call-desc' 'Verify hours, availability, and requirements.' %}</p>
                     </div>
                 </div>
             </div>
@@ -172,8 +176,8 @@
                 <div class="resources-tip">
                     <i class="fas fa-id-card" aria-hidden="true"></i>
                     <div>
-                        <strong>{% trans 'Bring ID' %}</strong>
-                        <p>{% trans 'Photo ID and proof of address are often required.' %}</p>
+                        <strong>{% site_text 'ui-resources-tip-id-title' 'Bring ID' %}</strong>
+                        <p>{% site_text 'ui-resources-tip-id-desc' 'Photo ID and proof of address are often required.' %}</p>
                     </div>
                 </div>
             </div>
@@ -181,8 +185,8 @@
                 <div class="resources-tip">
                     <i class="fas fa-file-alt" aria-hidden="true"></i>
                     <div>
-                        <strong>{% trans 'Bring paperwork' %}</strong>
-                        <p>{% trans 'Income statements, bills, and related documents.' %}</p>
+                        <strong>{% site_text 'ui-resources-tip-paperwork-title' 'Bring paperwork' %}</strong>
+                        <p>{% site_text 'ui-resources-tip-paperwork-desc' 'Income statements, bills, and related documents.' %}</p>
                     </div>
                 </div>
             </div>
@@ -190,8 +194,8 @@
                 <div class="resources-tip">
                     <i class="fas fa-clock" aria-hidden="true"></i>
                     <div>
-                        <strong>{% trans 'Plan ahead' %}</strong>
-                        <p>{% trans 'Some services have waiting lists or need appointments.' %}</p>
+                        <strong>{% site_text 'ui-resources-tip-plan-title' 'Plan ahead' %}</strong>
+                        <p>{% site_text 'ui-resources-tip-plan-desc' 'Some services have waiting lists or need appointments.' %}</p>
                     </div>
                 </div>
             </div>
@@ -199,26 +203,26 @@
     </section>
 
     <section class="resources-contact-cta mt-5">
-        <h2 class="h5 mb-2">{% trans 'Need help finding the right resource?' %}</h2>
-        <p class="mb-3">{% trans 'Our staff can help connect you with services for your situation.' %}</p>
+        <h2 class="h5 mb-2">{% site_text 'ui-resources-help-heading' 'Need help finding the right resource?' %}</h2>
+        <p class="mb-3">{% site_text 'ui-resources-help-lead' 'Our staff can help connect you with services for your situation.' %}</p>
         {% site_content 'contact-email' 'loveunlimitedcommunityoutreach@gmail.com' as contact_email %}
         <div class="resources-contact-details mb-3">
             {% site_content_html 'contact-contacts' 'Stephanie Woodward - <a href="tel:+18123992954">(812) 399-2954</a><br>Cathy Higgins - <a href="tel:+15025580642">(502) 558-0642</a>' %}
             <div class="mt-2"><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></div>
         </div>
         <a href="{% url 'frontend:contact' %}" class="btn btn-primary">
-            <i class="fas fa-comments me-2" aria-hidden="true"></i>{% trans 'Contact Us' %}
+            <i class="fas fa-comments me-2" aria-hidden="true"></i>{% site_text 'ui-contact-title' 'Contact Us' %}
         </a>
     </section>
 
     <p class="resources-disclaimer mt-5 mb-0" id="disclaimer">
         <i class="fas fa-info-circle me-1" aria-hidden="true"></i>
-        {% trans 'Information is for general reference only. Services and hours may change — please call ahead to verify. Love Unlimited is not responsible for services provided by other organizations.' %}
-        {% blocktrans with month_year="now"|date:"F Y" %}Updated {{ month_year }}.{% endblocktrans %}
+        {% site_text 'ui-resources-disclaimer' 'Information is for general reference only. Services and hours may change — please call ahead to verify. Love Unlimited is not responsible for services provided by other organizations.' %}
+        {% site_text 'ui-resources-updated' 'Updated' %} {% now "F Y" %}.
     </p>
 </div>
 
-<a href="#top" class="back-to-top btn btn-primary shadow" aria-label="{% trans 'Back to top' %}">
+<a href="#top" class="back-to-top btn btn-primary shadow" aria-label="{% site_text 'ui-resources-back-to-top' 'Back to top' %}">
     <i class="fas fa-arrow-up" aria-hidden="true"></i>
 </a>
 {% endblock %}
