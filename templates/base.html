@@ -41,13 +41,23 @@
     <link rel="icon" type="image/x-icon" href="{% static 'Img/TabLogo.ico' %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'Img/TabLogo.ico' %}">
     {% block extra_head %}{% endblock %}
+    {% if content_edit_mode %}
+    <link rel="stylesheet" href="{% static 'css/staff_content_preview.css' %}">
+    {% endif %}
     <script src="https://zeffy-scripts.s3.ca-central-1.amazonaws.com/embed-form-script.min.js" defer></script>
 
 </head>
 
-<body>
+<body{% if preview_mode %} class="staff-preview-mode"{% endif %}>
 
     <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    {% if content_edit_mode %}
+    <div class="staff-preview-banner" role="status">
+        <i class="fas fa-mouse-pointer me-2" aria-hidden="true"></i>
+        Click highlighted text to edit. You are previewing the <strong>{{ preview_lang|default:LANGUAGE_CODE|upper }}</strong> version of this page.
+    </div>
+    {% endif %}
 
     <!-- Navigation -->
 
@@ -75,31 +85,31 @@
 
                     <li class="nav-item">
 
-                        <a class="nav-link{% if request.resolver_match.url_name == 'home' %} active{% endif %}" href="{% url 'frontend:home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>{% trans 'Home' %}</a>
+                        <a class="nav-link{% if request.resolver_match.url_name == 'home' %} active{% endif %}" href="{% url 'frontend:home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>{% site_text 'ui-nav-home' 'Home' %}</a>
 
                     </li>
 
                     <li class="nav-item">
 
-                        <a class="nav-link{% if request.resolver_match.url_name == 'about' %} active{% endif %}" href="{% url 'frontend:about' %}"{% if request.resolver_match.url_name == 'about' %} aria-current="page"{% endif %}>{% trans 'About' %}</a>
+                        <a class="nav-link{% if request.resolver_match.url_name == 'about' %} active{% endif %}" href="{% url 'frontend:about' %}"{% if request.resolver_match.url_name == 'about' %} aria-current="page"{% endif %}>{% site_text 'ui-nav-about' 'About' %}</a>
 
                     </li>
 
                     <li class="nav-item">
 
-                        <a class="nav-link{% if request.resolver_match.url_name == 'calendar' %} active{% endif %}" href="{% url 'frontend:calendar' %}"{% if request.resolver_match.url_name == 'calendar' %} aria-current="page"{% endif %}>{% trans 'Events' %}</a>
+                        <a class="nav-link{% if request.resolver_match.url_name == 'calendar' %} active{% endif %}" href="{% url 'frontend:calendar' %}"{% if request.resolver_match.url_name == 'calendar' %} aria-current="page"{% endif %}>{% site_text 'ui-nav-events' 'Events' %}</a>
 
                     </li>
 
                     <li class="nav-item">
 
-                        <a class="nav-link{% if request.resolver_match.url_name == 'resources' %} active{% endif %}" href="{% url 'frontend:resources' %}"{% if request.resolver_match.url_name == 'resources' %} aria-current="page"{% endif %}>{% trans 'Resources' %}</a>
+                        <a class="nav-link{% if request.resolver_match.url_name == 'resources' %} active{% endif %}" href="{% url 'frontend:resources' %}"{% if request.resolver_match.url_name == 'resources' %} aria-current="page"{% endif %}>{% site_text 'ui-nav-resources' 'Resources' %}</a>
 
                     </li>
 
                     <li class="nav-item">
 
-                        <a class="nav-link{% if request.resolver_match.url_name == 'contact' %} active{% endif %}" href="{% url 'frontend:contact' %}"{% if request.resolver_match.url_name == 'contact' %} aria-current="page"{% endif %}>{% trans 'Contact' %}</a>
+                        <a class="nav-link{% if request.resolver_match.url_name == 'contact' %} active{% endif %}" href="{% url 'frontend:contact' %}"{% if request.resolver_match.url_name == 'contact' %} aria-current="page"{% endif %}>{% site_text 'ui-nav-contact' 'Contact' %}</a>
 
                     </li>
 
@@ -157,7 +167,7 @@
 
                         <button type="button" class="nav-link btn btn-primary text-white me-2 border-0 donate-nav-btn" zeffy-form-link="{{ zeffy_form_link }}">
 
-                            <i class="fas fa-donate me-1" aria-hidden="true"></i>{% trans 'Donate' %}
+                            <i class="fas fa-donate me-1" aria-hidden="true"></i>{% site_text 'ui-nav-donate' 'Donate' %}
 
                         </button>
 
@@ -243,19 +253,19 @@
 
                 <div class="col-md-4">
 
-                    <h5>{% trans 'Quick Links' %}</h5>
+                    <h5>{% site_text 'ui-footer-quick-links' 'Quick Links' %}</h5>
 
                     <ul class="list-unstyled">
 
-                        <li><a href="{% url 'frontend:about' %}" class="text-light">{% trans 'About Us' %}</a></li>
+                        <li><a href="{% url 'frontend:about' %}" class="text-light">{% site_text 'ui-footer-about-us' 'About Us' %}</a></li>
 
-                        <li><a href="{% url 'frontend:calendar' %}" class="text-light">{% trans 'Events' %}</a></li>
+                        <li><a href="{% url 'frontend:calendar' %}" class="text-light">{% site_text 'ui-nav-events' 'Events' %}</a></li>
 
-                        <li><a href="{% url 'frontend:resources' %}" class="text-light">{% trans 'Resources' %}</a></li>
+                        <li><a href="{% url 'frontend:resources' %}" class="text-light">{% site_text 'ui-nav-resources' 'Resources' %}</a></li>
 
-                        <li><a href="{% url 'frontend:contact' %}" class="text-light">{% trans 'Contact' %}</a></li>
+                        <li><a href="{% url 'frontend:contact' %}" class="text-light">{% site_text 'ui-nav-contact' 'Contact' %}</a></li>
 
-                        <li><a href="{% url 'frontend:donate' %}" class="text-light">{% trans 'Donate' %}</a></li>
+                        <li><a href="{% url 'frontend:donate' %}" class="text-light">{% site_text 'ui-nav-donate' 'Donate' %}</a></li>
 
                     </ul>
 
@@ -263,7 +273,7 @@
 
                 <div class="col-md-4">
 
-                    <h5>{% trans 'Contact Info' %}</h5>
+                    <h5>{% site_text 'ui-footer-contact-info' 'Contact Info' %}</h5>
 
                     <p><i class="fas fa-envelope me-2" aria-hidden="true"></i>{% site_content 'contact-email' 'loveunlimitedcommunityoutreach@gmail.com' %}</p>
 
@@ -277,11 +287,11 @@
 
             <div class="text-center">
 
-                <p class="mb-2">&copy; {{ current_year }} Love Unlimited. {% trans 'All rights reserved.' %}</p>
+                <p class="mb-2">&copy; {{ current_year }} Love Unlimited. {% site_text 'ui-footer-rights' 'All rights reserved.' %}</p>
 
                 <p class="mb-0">
                     <a href="{% url 'staff_portal:login' %}" class="text-light text-decoration-none">
-                        <i class="fas fa-lock me-2" aria-hidden="true"></i>{% trans 'Staff Login' %}
+                        <i class="fas fa-lock me-2" aria-hidden="true"></i>{% site_text 'ui-footer-staff-login' 'Staff Login' %}
                     </a>
                 </p>
 
@@ -294,6 +304,16 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% if content_edit_mode %}
+    <script>
+        window.STAFF_CONTENT_PREVIEW = {
+            saveUrl: "{% url 'staff_portal:content_block_save' %}",
+            language: "{{ preview_lang|default:LANGUAGE_CODE }}",
+            csrfToken: "{{ csrf_token }}"
+        };
+    </script>
+    {% endif %}
 
     {% block extra_js %}{% endblock %}
 

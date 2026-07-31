@@ -221,6 +221,11 @@ class Command(BaseCommand):
                     created += 1
         self.stdout.write(self.style.SUCCESS(f'Site content: {created} new blocks (en + es).'))
 
+        from staff_portal.content_registry import upsert_default_content
+        ui_created = upsert_default_content()
+        if ui_created:
+            self.stdout.write(self.style.SUCCESS(f'UI content: {ui_created} new blocks (en + es).'))
+
         resource_cats = {}
         cat_created = 0
         for cat_data in DEFAULT_RESOURCE_CATEGORIES:

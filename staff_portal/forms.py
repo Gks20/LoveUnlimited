@@ -212,13 +212,13 @@ class SiteContentForm(StyledForm):
             })
             body_field.label = 'Email address'
             body_field.help_text = 'Plain text only — no formatting needed.'
-        elif key == 'footer-tagline':
+        elif key == 'footer-tagline' or (key and key.startswith('ui-') and key not in SINGLE_LINE_KEYS):
             body_field.widget = forms.Textarea(attrs={
                 'class': 'form-control form-control-lg',
                 'rows': 3,
-                'placeholder': 'A short sentence for the bottom of every page…',
+                'placeholder': 'Plain text — no formatting needed.',
             })
-            body_field.help_text = 'One or two short sentences. No formatting needed.'
+            body_field.help_text = 'Plain text only — no formatting needed.'
         else:
             body_field.widget = RichTextWidget()
             body_field.help_text = (
@@ -228,9 +228,7 @@ class SiteContentForm(StyledForm):
     def clean_body(self):
         body = self.cleaned_data.get('body', '')
         key = self.instance.key if self.instance.pk else self.cleaned_data.get('key')
-        if key in PLAIN_TEXT_KEYS:
-            return strip_tags(body).strip()
-        if key == 'footer-tagline':
+        if key in PLAIN_TEXT_KEYS or key == 'footer-tagline':
             return strip_tags(body).strip()
         return sanitize_html(body)
 

@@ -9,14 +9,13 @@
 <div class="container-fluid py-4">
 
     <a href="{% url 'staff_portal:dashboard' %}" class="staff-back-link text-muted"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Home</a>
-
-
+    <a href="{% url 'staff_portal:content_list' %}" class="staff-back-link text-muted ms-3"><i class="fas fa-eye me-1" aria-hidden="true"></i> Visual editor</a>
 
     <div class="staff-page-header">
 
-        <h1 class="staff-page-title mb-2">Website Text</h1>
+        <h1 class="staff-page-title mb-2">All Text Blocks</h1>
 
-        <p class="staff-lead text-muted mb-3">Click <strong>Edit</strong> on any section to change the words visitors see on your website.</p>
+        <p class="staff-lead text-muted mb-3">Advanced list of every editable section. For most updates, use the <a href="{% url 'staff_portal:content_list' %}">visual editor</a> instead.</p>
 
 
 

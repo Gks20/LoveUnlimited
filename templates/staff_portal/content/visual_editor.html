@@ -1,0 +1,101 @@
+{% extends 'staff_portal/base.html' %}
+{% load static %}
+
+{% block title %}Edit Website{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/staff_content_preview.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/staff_rich_text.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4 staff-visual-editor">
+    <div class="staff-page-header mb-3">
+        <h1 class="staff-page-title mb-2">Edit Website</h1>
+        <p class="staff-lead text-muted mb-0">
+            Click any <span class="staff-editable-demo">highlighted text</span> on the page preview to edit it.
+            Changes save for the language you have selected.
+        </p>
+    </div>
+
+    <div class="staff-visual-toolbar card staff-form-card mb-3">
+        <div class="card-body py-3 d-flex flex-wrap gap-3 align-items-center justify-content-between">
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <span class="text-muted fw-semibold me-1">Page:</span>
+                {% for page_id, page in preview_pages.items %}
+                <a href="?page={{ page_id }}&lang={{ current_lang }}"
+                   class="btn btn-lg {% if current_page == page_id %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                    {{ page.label }}
+                </a>
+                {% endfor %}
+            </div>
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <span class="text-muted fw-semibold me-1">Language:</span>
+                <a href="?page={{ current_page }}&lang=en"
+                   class="btn btn-lg {% if current_lang != 'es' %}btn-primary{% else %}btn-outline-primary{% endif %}">English</a>
+                <a href="?page={{ current_page }}&lang=es"
+                   class="btn btn-lg {% if current_lang == 'es' %}btn-primary{% else %}btn-outline-primary{% endif %}">Español</a>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'staff_portal:content_block_list' %}?lang={{ current_lang }}" class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-list me-2" aria-hidden="true"></i>All text blocks
+                </a>
+                <a href="{% url 'frontend:home' %}" class="btn btn-outline-dark btn-lg" target="_blank" rel="noopener">
+                    <i class="fas fa-external-link-alt me-2" aria-hidden="true"></i>Live site
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="staff-visual-legend alert alert-light border mb-3 py-2 px-3">
+        <i class="fas fa-info-circle text-primary me-2" aria-hidden="true"></i>
+        <strong>Tip:</strong> Team photos, events, resources, and donation amounts are edited in their own sections — not here.
+    </div>
+
+    <div class="staff-visual-frame-wrap card staff-form-card overflow-hidden">
+        <iframe id="site-preview-frame"
+                class="staff-visual-frame"
+                title="Website preview"
+                src="{{ frame_url }}"></iframe>
+    </div>
+</div>
+
+<div class="modal fade" id="contentEditModal" tabindex="-1" aria-labelledby="contentEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="contentEditModalLabel">Edit text</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted small mb-3" id="contentEditHint"></p>
+                <div id="contentEditPlainWrap" class="d-none">
+                    <label for="contentEditPlain" class="form-label">Text</label>
+                    <textarea id="contentEditPlain" class="form-control form-control-lg" rows="4"></textarea>
+                </div>
+                <div id="contentEditRichWrap" class="d-none">
+                    <label class="form-label">Text</label>
+                    <div data-staff-rich-text class="staff-rich-text-widget">
+                        <textarea id="contentEditRich" class="staff-rich-text-source d-none" rows="8"></textarea>
+                        <div class="staff-rich-quill border rounded"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span id="contentEditStatus" class="text-muted small me-auto" aria-live="polite"></span>
+                <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-lg" id="contentEditSave">
+                    <i class="fas fa-save me-2" aria-hidden="true"></i>Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<script src="{% static 'js/staff_rich_text.js' %}"></script>
+<script src="{% static 'js/staff_content_preview.js' %}"></script>
+{% endblock %}

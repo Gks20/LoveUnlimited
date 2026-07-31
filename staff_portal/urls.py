@@ -15,7 +15,10 @@ urlpatterns = [
     path('events/<int:pk>/edit/', views.EventUpdateView.as_view(), name='event_edit'),
     path('events/<int:pk>/delete/', views.EventDeleteView.as_view(), name='event_delete'),
 
-    path('content/', views.ContentListView.as_view(), name='content_list'),
+    path('content/', views.ContentVisualEditorView.as_view(), name='content_list'),
+    path('content/list/', views.ContentListView.as_view(), name='content_block_list'),
+    path('content/preview/<slug:page>/', views.ContentPreviewFrameView.as_view(), name='content_preview_frame'),
+    path('content/save/', views.ContentBlockSaveView.as_view(), name='content_block_save'),
     path('content/new/', views.ContentCreateView.as_view(), name='content_create'),
     path('content/<int:pk>/edit/', views.ContentUpdateView.as_view(), name='content_edit'),
 

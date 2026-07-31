@@ -45,6 +45,9 @@
         document.querySelectorAll('[data-staff-rich-text]').forEach(initRichText);
     }
 
+    window.initStaffRichText = initRichText;
+    window.initStaffRichTextAll = initAll;
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initAll);
     } else {

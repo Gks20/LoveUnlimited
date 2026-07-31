@@ -1,9 +1,5 @@
 """Which site content keys use plain text only (no formatting editor)."""
 
-PLAIN_TEXT_KEYS = frozenset({
-    'contact-email',
-})
+from staff_portal.content_registry import PLAIN_TEXT_KEYS, SINGLE_LINE_KEYS
 
-SINGLE_LINE_KEYS = frozenset({
-    'contact-email',
-})
+__all__ = ['PLAIN_TEXT_KEYS', 'SINGLE_LINE_KEYS']

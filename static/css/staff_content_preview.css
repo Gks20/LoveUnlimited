@@ -1,0 +1,79 @@
+.staff-visual-editor .staff-editable-demo {
+    background: rgba(13, 110, 253, 0.12);
+    border-bottom: 2px dashed #0d6efd;
+    padding: 0 0.15rem;
+}
+
+.staff-visual-frame-wrap {
+    min-height: 70vh;
+}
+
+.staff-visual-frame {
+    display: block;
+    width: 100%;
+    min-height: 70vh;
+    height: 80vh;
+    border: 0;
+    background: #fff;
+}
+
+/* Styles injected into preview frame via staff_content_preview.css */
+.staff-editable {
+    cursor: pointer;
+    outline: 2px dashed transparent;
+    outline-offset: 3px;
+    border-radius: 0.2rem;
+    transition: outline-color 0.15s ease, background-color 0.15s ease;
+}
+
+.staff-editable:hover,
+.staff-editable:focus {
+    outline-color: #0d6efd;
+    background: rgba(13, 110, 253, 0.08);
+}
+
+.staff-editable-empty {
+    color: #6c757d;
+    font-style: italic;
+}
+
+.staff-preview-banner {
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    background: #fff3cd;
+    border-bottom: 1px solid #ffe69c;
+    color: #664d03;
+    padding: 0.65rem 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+body.staff-preview-mode .navbar a.nav-link:not(.staff-editable),
+body.staff-preview-mode .navbar button.donate-nav-btn,
+body.staff-preview-mode footer a:not(.staff-editable),
+body.staff-preview-mode .btn:not(.staff-editable),
+body.staff-preview-mode form {
+    pointer-events: none;
+}
+
+body.staff-preview-mode .staff-editable {
+    pointer-events: auto;
+}
+
+body.staff-preview-mode form {
+    opacity: 0.65;
+}
+
+.staff-editable.is-saving {
+    opacity: 0.6;
+}
+
+.staff-editable.is-saved {
+    animation: staff-editable-flash 0.8s ease;
+}
+
+@keyframes staff-editable-flash {
+    0% { background: rgba(25, 135, 84, 0.25); }
+    100% { background: transparent; }
+}
