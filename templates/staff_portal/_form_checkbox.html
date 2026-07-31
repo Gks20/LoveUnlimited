@@ -1,0 +1,14 @@
+<div class="mb-4">
+    <div class="staff-toggle-card">
+        <div class="form-check form-switch staff-check-lg">
+            {{ field }}
+            <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        </div>
+        {% if field.help_text %}
+            <p class="staff-toggle-help text-muted mb-0">{{ field.help_text }}</p>
+        {% endif %}
+        {% for error in field.errors %}
+            <div class="text-danger small mt-2">{{ error }}</div>
+        {% endfor %}
+    </div>
+</div>
