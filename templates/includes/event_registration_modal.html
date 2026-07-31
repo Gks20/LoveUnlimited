@@ -1,0 +1,53 @@
+{% load site_extras %}
+<div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="registrationForm" method="post" action="" novalidate>
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registrationModalLabel">{% site_text 'ui-reg-modal-title' 'Event Registration' %}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% site_text 'ui-modal-close' 'Close' %}"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="registrationFormAlert" class="alert alert-danger d-none" role="alert"></div>
+                    <p class="text-muted mb-3" id="registrationEventTitle"></p>
+                    <div class="mb-3">
+                        <label for="regFirstName" class="form-label">{% site_text 'ui-reg-first-name' 'First Name' %} <span class="text-danger" aria-hidden="true">*</span></label>
+                        <input type="text" class="form-control" id="regFirstName" name="first_name" required autocomplete="given-name">
+                        <div class="invalid-feedback d-block" id="regFirstNameError"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="regLastName" class="form-label">{% site_text 'ui-reg-last-name' 'Last Name' %} <span class="text-danger" aria-hidden="true">*</span></label>
+                        <input type="text" class="form-control" id="regLastName" name="last_name" required autocomplete="family-name">
+                        <div class="invalid-feedback d-block" id="regLastNameError"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="regEmail" class="form-label">{% site_text 'ui-reg-email' 'Email Address' %} <span class="text-danger" aria-hidden="true">*</span></label>
+                        <input type="email" class="form-control" id="regEmail" name="email" required autocomplete="email">
+                        <div class="invalid-feedback d-block" id="regEmailError"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="regPhone" class="form-label">{% site_text 'ui-reg-phone' 'Phone Number' %}</label>
+                        <input type="tel" class="form-control" id="regPhone" name="phone" autocomplete="tel">
+                        <div class="invalid-feedback d-block" id="regPhoneError"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="regNotes" class="form-label">{% site_text 'ui-reg-notes' 'Special Notes/Requirements' %}</label>
+                        <textarea class="form-control" id="regNotes" name="notes" rows="3"></textarea>
+                        <div class="invalid-feedback d-block" id="regNotesError"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% site_text 'ui-reg-cancel' 'Cancel' %}</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check me-1" aria-hidden="true"></i>{% site_text 'ui-reg-submit' 'Register' %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if registration_modal %}
+{{ registration_modal|json_script:"registration-modal-data" }}
+{% endif %}

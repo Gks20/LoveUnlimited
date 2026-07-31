@@ -3,6 +3,10 @@
 
 {% block title %}Love Unlimited{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/events.css' %}">
+{% endblock %}
+
 {% block content %}
 <section class="hero-section text-white py-5{% if homepage_settings.has_hero_image %} hero-section--image{% endif %}{% if homepage_settings.hero_use_gradient %} hero-section--gradient{% endif %}"
     {% if homepage_settings.has_hero_image %}style="--hero-bg-image: url('{{ homepage_settings.hero_image.url }}');"{% endif %}>
@@ -86,22 +90,8 @@
         <h2 class="text-center mb-5">{% site_text 'ui-home-upcoming-events' 'Upcoming Events' %}</h2>
         <div class="row">
             {% for event in upcoming_events %}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ event.title }}</h5>
-                        <p class="card-text">
-                            <i class="fas fa-calendar me-2" aria-hidden="true"></i>{{ event.date }}
-                            <br>
-                            <i class="fas fa-clock me-2" aria-hidden="true"></i>{{ event.start_time }}
-                            {% if event.location %}
-                            <br>
-                            <i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i>{{ event.location }}
-                            {% endif %}
-                        </p>
-                        <p class="card-text">{{ event.description|truncatewords:15 }}</p>
-                    </div>
-                </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                {% include 'includes/event_card.html' with event=event %}
             </div>
             {% endfor %}
         </div>
@@ -110,6 +100,7 @@
         </div>
     </div>
 </section>
+{% include 'includes/event_registration_modal.html' %}
 {% else %}
 <section class="py-5">
     <div class="container text-center empty-state">
@@ -134,4 +125,10 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+{% if upcoming_events %}
+<script src="{% static 'js/event-registration.js' %}"></script>
+{% endif %}
 {% endblock %}

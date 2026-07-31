@@ -5,6 +5,110 @@
     color: #1a1a1a;
 }
 
+.resources-page-header .page-subheading {
+    color: #5c6670;
+    max-width: 42rem;
+}
+
+/* Helplines — emergency row + quick links */
+.resources-helplines {
+    border: 1px solid #e3e8ec;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+
+.resources-helplines-emergency {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    background: linear-gradient(135deg, #c62828 0%, #b71c1c 100%);
+    color: #fff;
+}
+
+.resources-helpline-item {
+    padding: 1rem 1.25rem;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.resources-helpline-item:last-child {
+    border-right: none;
+}
+
+.resources-helpline-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.9;
+    margin-bottom: 0.25rem;
+}
+
+.resources-helpline-value {
+    display: block;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+}
+
+.resources-helpline-value:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.resources-helpline-note {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.85;
+    margin-top: 0.15rem;
+}
+
+.resources-helplines-quick {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    background: #f4f8fb;
+    border-top: 1px solid #e3e8ec;
+}
+
+.resources-quick-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.85rem 1.15rem;
+    font-size: 0.9rem;
+    color: #333;
+    text-decoration: none;
+    border-right: 1px solid #e3e8ec;
+    border-bottom: 1px solid #e3e8ec;
+}
+
+.resources-quick-link:nth-child(2n) {
+    border-right: none;
+}
+
+.resources-quick-link:nth-last-child(-n+2) {
+    border-bottom: none;
+}
+
+.resources-quick-link:hover {
+    background: #eef6fb;
+    color: #111;
+}
+
+.resources-quick-link i {
+    color: var(--primary-color);
+    margin-top: 0.15rem;
+    width: 1rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Search toolbar */
 .resources-toolbar {
     border: 1px solid #e3e8ec;
     border-radius: 0.75rem;
@@ -15,6 +119,7 @@
     font-weight: 600;
     font-size: 0.875rem;
     color: #495057;
+    margin-bottom: 0.35rem;
 }
 
 .resources-result-count {
@@ -22,28 +127,33 @@
     color: #6c757d;
 }
 
-.resources-quick-stat {
-    padding: 0.5rem;
+/* Category jump pills */
+.resources-category-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
-.resources-quick-stat-icon {
-    width: 2.75rem;
-    height: 2.75rem;
-    margin: 0 auto 0.65rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
+.resources-category-pill {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.875rem;
+    font-weight: 500;
     color: var(--primary-color);
     background: #eef6fb;
+    border: 1px solid rgba(0, 122, 192, 0.15);
+    border-radius: 2rem;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
 }
 
-.resources-quick-stat h6 {
-    font-size: 0.9rem;
-    margin-bottom: 0.25rem;
+.resources-category-pill:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
 }
 
+/* Resource category cards */
 .resource-category-card {
     border: 1px solid #e3e8ec;
     border-radius: 0.75rem;
@@ -53,72 +163,199 @@
 
 .resource-category-card .card-header {
     padding: 0.85rem 1.15rem;
+    background: var(--primary-color);
+    color: #fff;
+    border-bottom: none;
+}
+
+.resource-category-card .card-header h2 {
     font-size: 1.05rem;
+    font-weight: 600;
 }
 
 .resource-item {
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
+    padding: 1rem 0;
     border-bottom: 1px solid #eef1f4;
 }
 
 .resource-item:last-child {
-    margin-bottom: 0;
     padding-bottom: 0;
     border-bottom: none;
 }
 
-.resources-access-icon {
-    width: 3.25rem;
-    height: 3.25rem;
+.resource-item-name {
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.35rem;
+}
+
+.resource-item-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.resource-item-meta {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #444;
+}
+
+.resource-item-meta li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.resource-item-meta i {
+    width: 1rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.resource-item-meta a {
+    color: var(--primary-color);
+    word-break: break-word;
+}
+
+.resource-item-tags {
+    margin-top: 0.5rem;
+}
+
+.resource-item-tags .badge {
+    font-weight: 500;
+    font-size: 0.75rem;
+    background: #f0f4f7;
+    color: #555;
+    border: 1px solid #dde3e8;
+    margin-right: 0.35rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Tips section */
+.resources-tips {
+    padding: 1.5rem;
+    background: #f8fafb;
+    border: 1px solid #e3e8ec;
+    border-radius: 0.75rem;
+}
+
+.resources-tip {
+    display: flex;
+    gap: 0.75rem;
+    height: 100%;
+}
+
+.resources-tip i {
+    width: 2.25rem;
+    height: 2.25rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.15rem;
+    font-size: 0.95rem;
     color: var(--primary-color);
-    background: linear-gradient(145deg, #eef6fb 0%, #e3f0f9 100%);
-    border: 2px solid rgba(0, 122, 192, 0.12);
-    box-shadow: 0 2px 8px rgba(0, 122, 192, 0.08);
+    background: #eef6fb;
+    flex-shrink: 0;
 }
 
-.resource-item-name {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 0.4rem;
-}
-
-.resource-item-detail {
+.resources-tip strong {
+    display: block;
     font-size: 0.9rem;
-    line-height: 1.5;
-    color: #444;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.15rem;
 }
 
-.resource-item-detail i {
-    width: 1rem;
-    color: var(--primary-color);
+.resources-tip p {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 0;
+    line-height: 1.45;
+}
+
+/* Contact CTA */
+.resources-contact-cta {
+    padding: 1.75rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #005a94 100%);
+    color: #fff;
+    border-radius: 0.75rem;
     text-align: center;
 }
 
-.resource-item-desc {
-    font-size: 0.875rem;
-    line-height: 1.55;
-    color: #666;
-    margin-top: 0.35rem;
-    margin-bottom: 0;
+.resources-contact-cta h2 {
+    color: #fff;
 }
 
-.resources-priority-banner {
-    border-radius: 0.75rem;
+.resources-contact-cta p {
+    opacity: 0.95;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.resources-emergency-banner {
-    border-radius: 0.75rem;
+.resources-contact-details {
+    font-size: 0.95rem;
+}
+
+.resources-contact-details a {
+    color: #fff;
+}
+
+.resources-contact-cta .btn-primary {
+    background: #fff;
+    border-color: #fff;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.resources-contact-cta .btn-primary:hover {
+    background: #f0f4f7;
+    border-color: #f0f4f7;
+    color: var(--primary-color);
+}
+
+/* Disclaimer */
+.resources-disclaimer {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #6c757d;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
 }
 
 @media (max-width: 768px) {
+    .resources-helplines-emergency {
+        grid-template-columns: 1fr;
+    }
+
+    .resources-helpline-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .resources-helpline-item:last-child {
+        border-bottom: none;
+    }
+
+    .resources-helplines-quick {
+        grid-template-columns: 1fr;
+    }
+
+    .resources-quick-link {
+        border-right: none;
+    }
+
+    .resources-quick-link:nth-last-child(-n+2) {
+        border-bottom: 1px solid #e3e8ec;
+    }
+
+    .resources-quick-link:last-child {
+        border-bottom: none;
+    }
+
     .resources-toolbar .btn {
         width: 100%;
     }

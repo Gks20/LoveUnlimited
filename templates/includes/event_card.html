@@ -1,3 +1,4 @@
+{% load site_extras %}
 <div class="card event-card h-100{% if not event.is_upcoming %} event-card--past{% endif %}">
     <div class="event-card-accent"{% if event.category %} style="--event-accent: {{ event.category.color }};"{% endif %}></div>
     <div class="card-header event-card-header d-flex justify-content-between align-items-start gap-2">
@@ -27,7 +28,7 @@
             {% if event.max_attendees %}
             <li>
                 <i class="fas fa-users" aria-hidden="true"></i>
-                <span>{{ event.registration_count }} / {{ event.max_attendees }} registered</span>
+                <span>{{ event.registration_count }} / {{ event.max_attendees }} {% site_text 'ui-event-registered' 'registered' %}</span>
             </li>
             {% endif %}
         </ul>
@@ -36,7 +37,7 @@
         {% endif %}
         {% if event.contact_email or event.contact_phone %}
             <div class="event-card-contact mt-3 pt-3">
-                <p class="small text-muted mb-2 fw-semibold">Contact</p>
+                <p class="small text-muted mb-2 fw-semibold">{% site_text 'ui-event-contact' 'Contact' %}</p>
                 {% if event.contact_email %}
                     <p class="small mb-1">
                         <a href="mailto:{{ event.contact_email }}">{{ event.contact_email }}</a>
@@ -54,16 +55,16 @@
         <div>
             {% if event.is_upcoming and not event.is_full %}
                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#registrationModal" data-register-url="{% url 'frontend:event_register' event.id %}" data-event-title="{{ event.title }}" data-event-id="{{ event.id }}">
-                    <i class="fas fa-user-plus me-1" aria-hidden="true"></i>Register
+                    <i class="fas fa-user-plus me-1" aria-hidden="true"></i>{% site_text 'ui-event-register' 'Register' %}
                 </button>
             {% elif event.is_full %}
-                <span class="badge bg-warning text-dark">Event Full</span>
+                <span class="badge bg-warning text-dark">{% site_text 'ui-event-full' 'Event Full' %}</span>
             {% else %}
-                <span class="badge bg-secondary">Past Event</span>
+                <span class="badge bg-secondary">{% site_text 'ui-event-past' 'Past Event' %}</span>
             {% endif %}
         </div>
         <a href="{% url 'frontend:event_ics' event.id %}" class="btn btn-outline-primary btn-sm">
-            <i class="fas fa-calendar-plus me-1" aria-hidden="true"></i>Add to Calendar
+            <i class="fas fa-calendar-plus me-1" aria-hidden="true"></i>{% site_text 'ui-event-add-calendar' 'Add to Calendar' %}
         </a>
     </div>
 </div>

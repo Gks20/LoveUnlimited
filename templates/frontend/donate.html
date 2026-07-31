@@ -1,104 +1,99 @@
 {% extends 'base.html' %}
-{% load site_extras %}
+{% load static site_extras %}
 
 {% block title %}{% site_text 'ui-donate-title' 'Support Our Mission' %} - Love Unlimited{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/page-sections.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container py-5">
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <div class="text-center mb-5">
-                <h1 class="display-4 mb-4">{% site_text 'ui-donate-title' 'Support Our Mission' %}</h1>
-                <p class="lead">{% site_content_html 'donate-intro' "Your generous support enables us to continue providing essential services." %}</p>
-            </div>
+    <div class="page-hero">
+        <h1 class="display-5 page-heading mb-3">{% site_text 'ui-donate-title' 'Support Our Mission' %}</h1>
+        <p class="lead page-subheading mb-0">{% site_content_html 'donate-intro' "Your generous support enables us to continue providing essential services." %}</p>
+    </div>
 
-            <!-- Donation Impact -->
-            <div class="row mb-5">
-                <div class="col-md-4 text-center mb-4">
-                    <div class="card border-primary">
-                        <div class="card-body">
-                            <h3 class="text-primary">$25</h3>
-                            <p>{{ donation_settings.impact_25 }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <div class="card border-primary">
-                        <div class="card-body">
-                            <h3 class="text-primary">$50</h3>
-                            <p>{{ donation_settings.impact_50 }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <div class="card border-primary">
-                        <div class="card-body">
-                            <h3 class="text-primary">$100</h3>
-                            <p>{{ donation_settings.impact_100 }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Zeffy Integration Section -->
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><i class="fas fa-heart me-2"></i>{% site_text 'ui-donate-section-title' 'Make a Donation' %}</h3>
-                </div>
+    <div class="row g-3 mb-5 justify-content-center">
+        <div class="col-md-4">
+            <div class="card page-impact-card text-center h-100">
                 <div class="card-body">
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i>
-                        {% site_content_html 'donate-zeffy-info' 'We partner with Zeffy for secure, transparent donation processing. This means 100% of your contribution goes directly to Love Unlimited—no fees, no deductions.' %}
-                    </div>
-                    
-                    <div class="text-center py-4">
-                        <button type="button" class="btn btn-primary btn-lg" zeffy-form-link="{{ zeffy_form_link }}">
-                            <i class="fas fa-heart me-2"></i>{% site_text 'ui-donate-btn' 'Donate Now' %}
-                        </button>
-                    </div>
-                    {% if donation_settings.zeffy_embed_html %}
-                        <div class="zeffy-embed mt-4">
-                            {{ donation_settings.zeffy_embed_html|safe }}
-                        </div>
-                    {% endif %}
+                    <h3 class="text-primary">$25</h3>
+                    <p class="mb-0">{{ donation_settings.impact_25 }}</p>
                 </div>
-            </div>
-
-            <!-- Other Ways to Give -->
-            <div class="mt-5">
-                <h3 class="mb-4">{% site_text 'ui-donate-other-ways' 'Other Ways to Support Us' %}</h3>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <i class="fas fa-hands-helping text-primary me-2"></i>{% site_text 'ui-home-volunteer' 'Volunteer' %}
-                                </h5>
-                                <p class="card-text">Join our passionate team of volunteers and make a direct, hands-on impact in your community.</p>
-                                <a href="{% url 'frontend:contact' %}" class="btn btn-outline-primary">{% site_text 'ui-home-learn-more' 'Learn More' %}</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <i class="fas fa-box text-primary me-2"></i>Donate Items
-                                </h5>
-                                <p class="card-text">We gratefully accept donations of non-perishable food, gently used clothing, and essential hygiene items.</p>
-                                <a href="{% url 'frontend:contact' %}" class="btn btn-outline-primary">{% site_text 'ui-nav-contact' 'Contact' %}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tax Information -->
-            <div class="alert alert-success mt-4">
-                <h5><i class="fas fa-receipt me-2"></i>{% site_text 'ui-donate-tax-heading' 'Tax Deductible' %}</h5>
-                <p class="mb-0">{% site_content_html 'donate-tax-body' "Love Unlimited is a registered 501(c)(3) non-profit organization. Your generous donation is tax-deductible to the full extent allowed by law, and you'll receive a receipt for your records." %}{% if donation_settings.tax_id %} Tax ID: {{ donation_settings.tax_id }}{% endif %}</p>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card page-impact-card text-center h-100">
+                <div class="card-body">
+                    <h3 class="text-primary">$50</h3>
+                    <p class="mb-0">{{ donation_settings.impact_50 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card page-impact-card text-center h-100">
+                <div class="card-body">
+                    <h3 class="text-primary">$100</h3>
+                    <p class="mb-0">{{ donation_settings.impact_100 }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card page-card mb-5">
+        <div class="card-header">
+            <h2 class="h5 mb-0"><i class="fas fa-heart me-2" aria-hidden="true"></i>{% site_text 'ui-donate-section-title' 'Make a Donation' %}</h2>
+        </div>
+        <div class="card-body p-4">
+            <div class="alert alert-info mb-4">
+                <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+                {% site_content_html 'donate-zeffy-info' 'We partner with Zeffy for secure, transparent donation processing. This means 100% of your contribution goes directly to Love Unlimited—no fees, no deductions.' %}
+            </div>
+            <div class="text-center py-3">
+                <button type="button" class="btn btn-primary btn-lg" zeffy-form-link="{{ zeffy_form_link }}">
+                    <i class="fas fa-heart me-2" aria-hidden="true"></i>{% site_text 'ui-donate-btn' 'Donate Now' %}
+                </button>
+            </div>
+            {% if donation_settings.zeffy_embed_html %}
+            <div class="zeffy-embed mt-4">
+                {{ donation_settings.zeffy_embed_html|safe }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <section class="mb-5">
+        <h2 class="h4 mb-4 text-center">{% site_text 'ui-donate-other-ways' 'Other Ways to Support Us' %}</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card page-support-card">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-hands-helping text-primary me-2" aria-hidden="true"></i>{% site_text 'ui-home-volunteer' 'Volunteer' %}
+                        </h3>
+                        <p class="card-text">{% site_text 'ui-donate-volunteer-body' 'Join our passionate team of volunteers and make a direct, hands-on impact in your community.' %}</p>
+                        <a href="{% url 'frontend:contact' %}" class="btn btn-outline-primary">{% site_text 'ui-home-learn-more' 'Learn More' %}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card page-support-card">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-box text-primary me-2" aria-hidden="true"></i>{% site_text 'ui-donate-items-title' 'Donate Items' %}
+                        </h3>
+                        <p class="card-text">{% site_text 'ui-donate-items-body' 'We gratefully accept non-perishable food, gently used clothing, and essential hygiene items.' %}</p>
+                        <a href="{% url 'frontend:contact' %}" class="btn btn-outline-primary">{% site_text 'ui-nav-contact' 'Contact' %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="alert alert-success">
+        <h3 class="h5"><i class="fas fa-receipt me-2" aria-hidden="true"></i>{% site_text 'ui-donate-tax-heading' 'Tax Deductible' %}</h3>
+        <p class="mb-0">{% site_content_html 'donate-tax-body' "Love Unlimited is a registered 501(c)(3) non-profit organization. Your generous donation is tax-deductible to the full extent allowed by law, and you'll receive a receipt for your records." %}{% if donation_settings.tax_id %} Tax ID: {{ donation_settings.tax_id }}{% endif %}</p>
     </div>
 </div>
 {% endblock %}

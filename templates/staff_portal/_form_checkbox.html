@@ -1,0 +1,19 @@
+{% load widget_tweaks %}
+<div class="mb-4">
+    <div class="staff-toggle-card">
+        <div class="form-check form-switch staff-check-lg">
+            {% if field.errors %}
+                {{ field|add_class:"is-invalid" }}
+            {% else %}
+                {{ field }}
+            {% endif %}
+            <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        </div>
+        {% if field.help_text %}
+            <p id="{{ field.id_for_label }}_help" class="staff-toggle-help text-muted mb-0">{{ field.help_text }}</p>
+        {% endif %}
+        {% for error in field.errors %}
+            <div class="invalid-feedback d-block" id="{{ field.id_for_label }}_error">{{ error }}</div>
+        {% endfor %}
+    </div>
+</div>

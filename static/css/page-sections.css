@@ -1,0 +1,129 @@
+/* Shared layout styles for Contact and Donate pages */
+
+.page-hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.page-hero .page-heading {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.page-hero .page-subheading {
+    color: #5c6670;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-card {
+    border: 1px solid #e3e8ec;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+
+.page-card .card-header {
+    padding: 0.9rem 1.25rem;
+    background: var(--primary-color);
+    color: #fff;
+    border-bottom: none;
+}
+
+.page-card .card-header h2,
+.page-card .card-header h3,
+.page-card .card-header h4 {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.page-info-item h5 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.page-info-item {
+    margin-bottom: 1.25rem;
+}
+
+.page-info-item:last-child {
+    margin-bottom: 0;
+}
+
+.page-impact-card {
+    border: 1px solid rgba(0, 122, 192, 0.2);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.15s ease;
+}
+
+.page-impact-card:hover {
+    box-shadow: 0 4px 14px rgba(0, 122, 192, 0.1);
+}
+
+.page-impact-card h3 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.page-support-card {
+    border: 1px solid #e3e8ec;
+    border-radius: 0.75rem;
+    height: 100%;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+
+.page-support-card .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.contact-volunteer-panel {
+    background: #f8fafb;
+    border: 1px solid #e3e8ec;
+    border-radius: 0.75rem;
+    padding: 2rem 1.5rem;
+}
+
+.contact-volunteer-roles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.contact-volunteer-role {
+    text-align: center;
+    padding: 1rem 0.75rem;
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 0.65rem;
+}
+
+.contact-volunteer-role i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.65rem;
+}
+
+.contact-volunteer-role h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.contact-volunteer-role p {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 0;
+    line-height: 1.45;
+}
+
+@media (max-width: 768px) {
+    .contact-volunteer-roles {
+        grid-template-columns: 1fr;
+    }
+}
